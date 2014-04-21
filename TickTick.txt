@@ -1,0 +1,86 @@
+PROBLEM STATEMENT
+Our computer clock is not continuous.  It "ticks" every millisecond and keeps
+track of how many ticks have occurred since the beginning of the "epoch"
+(Jan 1, 1970). The clocktime does not change between ticks.
+
+Time is continuous, and events (such as interrupts from hardware devices and
+the starting of a program) can happen anytime. We have a program that 
+experiences a sequence of events. At each event in our program, our logic gets 
+the current clocktime and compares it with the clocktime stored from the
+previous event. It outputs either 'D' or 'S' indicating whether the current
+clocktime is Different or the Same as the previous event's clocktime. (The first event
+after the program starts generates the first 'S' or 'D' based on comparison 
+with the clocktime at the start of the program.)
+
+Because the first tick during our program can occur anytime within one millisecond after the
+start of the program, the string of 'D's and 'S's output from our program
+cannot be predicted, even given the exact timing of the program.  Create a
+class TickTick that contains a method count that is given event, a vector <string> 
+of the times of events relative to the start of the program, and returns 
+the number of different output sequences
+that might be generated. The event times are given in milliseconds elapsed 
+since the start of the program, formatted to contain digits and exactly one 
+decimal point. 
+
+Time is continuous, so exact coincidences do not occur (or occur with probability 0). You should not consider the
+possibility that a tick occurs at exactly the same time as an event or at the exact 
+start of the program. The constraints on event guarantee that two 
+different events can never be exactly an integral number of
+milliseconds apart. 
+
+
+
+DEFINITION
+Class:TickTick
+Method:count
+Parameters:vector <string>
+Returns:int
+Method signature:int count(vector <string> events)
+
+
+CONSTRAINTS
+-events has between 1 and 50 elements inclusive
+-each element of events has length between 2 and 8, and contains exactly one decimal point '.'. All the other characters are digits '0'-'9'
+-no element of events has a value equal to an integer
+-no two elements of events have values that differ by an integer
+-the elements of events have values that are strictly increasing
+
+
+EXAMPLES
+
+0)
+{".222","00.223","1.221","4.220"}
+
+Returns: 4
+
+
+If the clock's first tick occurs approximately .100 milliseconds after the start of
+the program,  then the clocktime at time .222
+will be Different from the clocktime at the start. The clocktime at .223 will
+be the same as at .222, the clocktime at 1.221 will be different from the
+clocktime at .223 since a tick occurs at 1.100. The clocktime at 4.220 will 
+always be different from the clocktime at 1.221. So in this case, the 
+program generates DSDD.  Similarly, 
+   if the clock's first tick is at .2215, DSSD
+   if the clock's first tick is at .2225, SDSD
+   if the clock's first tick is at .2235, SSDD 
+These are the only possible sequences that can be generated. 
+
+
+
+1)
+{"4.220112","4.221","4.222","4.223"}
+
+Returns: 4
+
+
+    DSSS, DSSD, DSDS, DDSS
+
+2)
+{"123456.1","123456.7"}
+
+Returns: 2
+
+If the first tick occurs at .05 after the program starts, the 
+output would be DS while if it occurs .5 after the program starts, then
+the output would be DD. These are the only possible results.

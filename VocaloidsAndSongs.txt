@@ -1,0 +1,77 @@
+PROBLEM STATEMENT
+Vocaloids Gumi, Ia, and Mayu love singing.
+They decided to make an album composed of S songs.
+Each of the S songs must be sung by at least one of the three Vocaloids.
+It is allowed for some songs to be sung by any two, or even all three Vocaloids at the same time.
+The number of songs sang by Gumi, Ia, and Mayu must be gumi, ia, and mayu, respectively.
+
+They soon realized that there are many ways of making the album.
+Two albums are considered different if there is a song that is sung by a different set of Vocaloids.
+Let X be the number of possible albums.
+Since the number X can be quite large, compute and return the number (X modulo 1,000,000,007).
+
+DEFINITION
+Class:VocaloidsAndSongs
+Method:count
+Parameters:int, int, int, int
+Returns:int
+Method signature:int count(int S, int gumi, int ia, int mayu)
+
+
+CONSTRAINTS
+-S will be between 1 and 50, inclusive.
+-gumi, ia and mayu will be each between 1 and S, inclusive.
+
+
+EXAMPLES
+
+0)
+3
+1
+1
+1
+
+Returns: 6
+
+In this case, there are 3 songs on the album. And Gumi, Ia, Mayu will each sing one song.
+There are 3*2*1 = 6 ways how to choose which Vocaloid sings which song.
+
+1)
+3
+3
+1
+1
+
+Returns: 9
+
+Gumi will sing all three songs. Ia and Mayu can each choose which one song they want to sing.
+
+2)
+50
+10
+10
+10
+
+Returns: 0
+
+It is not possible to record 50 songs if each Vocaloid can only sing 10 of them.
+
+3)
+18
+12
+8
+9
+
+Returns: 81451692
+
+
+
+4)
+50
+25
+25
+25
+
+Returns: 198591037
+
+

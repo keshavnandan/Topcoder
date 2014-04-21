@@ -1,0 +1,209 @@
+PROBLEM STATEMENT
+
+
+You are in a maze containing revolving doors.  The doors can be turned 90
+degrees by pushing against them in either direction.  You are to find a
+route from the start square to the end square that involves revolving as few
+doors as possible.  Given a map of the maze, determine the fewest number of
+door revolutions necessary to get from the start to the end.
+
+
+In the map:
+
+
+
+   ' ': empty space
+   '#': wall
+   'O': center of a revolving door (letter "oh", not zero)
+   '-': horizontal door (always adjacent to a 'O')
+   '|': vertical door (always adjacent to a 'O')
+   'S': start square
+   'E': end square
+
+
+
+Each revolving door will always be oriented horizontally (with two horizontal segments) or vertically (with two vertical segments):
+
+
+    |
+    O  or  -O-
+    |
+
+
+Doors can be revolved 90 degrees by moving onto a door segment from any of the 4 squares diagonally adjacent to the door center, i.e., the 'X' characters below:
+
+
+   X|X     X X
+    O  or  -O-
+   X|X     X X
+
+
+Here is an example map:
+
+
+        ###
+        #E#
+       ## #
+    ####  ##
+    # S -O-#
+    # ###  #
+    #      #
+    ########
+
+
+In this example, 2 door revolutions are necessary to get from 'S' to 'E'.  The first turn is shown here:
+
+
+        ###         ###
+        #E#         #E#
+       ## #        ## #
+    ####  ##    #### |##
+    # S -O-#    # S  OX#
+    # ### X#    # ###| #
+    #      #    #      #
+    ########    ########
+
+
+And the second turn is shown here:
+
+
+        ###         ###
+        #E#         #E#
+       ## #        ## #
+    ####X|##    #### X##
+    # S  O #    # S -O-#
+    # ###| #    # ###  #
+    #      #    #      #
+    ########    ########
+
+
+
+Your method should return an int, the minimum number of door revolutions necessary to get from the start square to the end square.
+If there is no way to reach the end square, return -1.
+
+
+
+DEFINITION
+Class:RevolvingDoors
+Method:turns
+Parameters:vector <string>
+Returns:int
+Method signature:int turns(vector <string> map)
+
+
+NOTES
+-Assume that all squares off the edge of the map are walls.
+
+
+CONSTRAINTS
+-map will contain between 3 and 50 elements, inclusive.
+-Each element of map will contain between 3 and 50 characters, inclusive.
+-Each element of map will contain the same number of characters.
+-Each character in map will be one of 'S', 'E', 'O', '-', '|', '#', and ' ' (space).
+-There will be exactly one 'S' and one 'E' in map.
+-There will be between 1 and 10 doors, inclusive, and they will be formatted in map as described in the problem statement.
+-No two doors will be close enough for any part of them to occupy the same square.
+-It is not allowed for a door to be blocked and unable to turn.  There will not be any walls in any of the 4 squares immediately adjacent to the center of a door, nor will a door be on the edge of the map.
+
+
+EXAMPLES
+
+0)
+{ "    ### ",
+  "    #E# ",
+  "   ## # ",
+  "####  ##",
+  "# S -O-#",
+  "# ###  #",
+  "#      #",
+  "########" }
+
+Returns: 2
+
+This is the example from the problem statement.
+
+1)
+{ "#### ",
+  "#S|##",
+  "# O #",
+  "##|E#",
+  " ####" }
+
+
+Returns: -1
+
+There is no way to reach the end square.
+
+2)
+{ " |  |  |     |  |  |  |  |  | ",
+  " O  O EO -O- O  O  O  O  OS O ",
+  " |  |  |     |  |  |  |  |  | " }
+
+
+Returns: 7
+
+The optimal path involves turning the 3rd door twice, and the 5th, 6th, 7th, 8th, and 9th doors once each (counting from the left).  Note that the 'S' and 'E' do not block doors, and in fact you must turn the 3rd door twice to end up on the 'E'.
+
+
+3)
+{ "###########",
+  "#    #    #",
+  "#  S | E  #",
+  "#    O    #",
+  "#    |    #",
+  "#         #",
+  "###########" }
+
+Returns: 0
+
+4)
+{ "        E",
+  "    |    ",
+  "    O    ",
+  "    |    ",
+  " -O-S-O- ",
+  "    |    ",
+  "    O    ",
+  "    |    ",
+  "         " }
+
+
+Returns: -1
+
+You are stuck, unable to move or turn any doors from this position.
+
+5)
+{ "##E#   ",
+  "#  ##  ",
+  " -O-## ",
+  " #  ## ",
+  " ##  ##",
+  "  -O-  ",
+  "##  ## ",
+  " # ### ",
+  " #  S  " }
+
+Returns: 5
+
+6)
+{ "#############",
+  "#  #|##|#   #",
+  "#   O  O    #",
+  "# E || || S #",
+  "#    O  O   #",
+  "#   #|##|#  #",
+  "#############" }
+
+Returns: 4
+
+After all the doors have been turned, the map looks like this:
+
+
+    #############
+    #  # ## #   #
+    #  -O--O-   #
+    # E       S #
+    #   -O--O-  #
+    #   # ## #  #
+    #############
+

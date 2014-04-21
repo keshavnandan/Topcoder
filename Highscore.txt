@@ -1,0 +1,81 @@
+PROBLEM STATEMENT
+Many computer games have high score lists, where the best achieved scores are stored in non-ascending order. The rank of a score in such a list is normally the position in the sorted list. But if several scores are equal, their rank is the smallest position of such a score in the sorted list. For example, if the high score list looks like:
+100
+90
+90
+80
+
+then the ranks would be
+1
+2
+2
+4
+
+Given the number of possible entries in the high score list (int places), a list of scores (vector <int> scores) and a new score (int newscore), write a method getRank which returns the rank of the new score within the high score list. If the score is too low to get a position on the high score list, your method should return -1. Note that in a case where all places on the high score list are already filled, an old score will only be replaced if the new score is better (see example 2).
+
+DEFINITION
+Class:Highscore
+Method:getRank
+Parameters:vector <int>, int, int
+Returns:int
+Method signature:int getRank(vector <int> scores, int newscore, int places)
+
+
+CONSTRAINTS
+-places is between 10 and 50, inclusive.
+-The number of elements in scores is between 0 and places, inclusive.
+-Each element of scores is between 0 and 2000000000, inclusive.
+-scores is sorted in non-ascending order.
+-newscore is between 0 and 2000000000, inclusive.
+
+
+EXAMPLES
+
+0)
+{100,90,80}
+90
+10
+
+Returns: 2
+
+Inserting the score of 90 in the high score list gives {100, 90, 90, 80}.
+The ranks for this list are {1,2,2,4} (see example above). Therefore the return value is 2.
+
+1)
+{}
+0
+50
+
+Returns: 1
+
+The high score list is still empty, so the new score gets the top position.
+
+2)
+{10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
+1
+10
+
+Returns: -1
+
+All 10 places on the high score list are already taken, and the new score is not better than any of them.
+
+3)
+{10, 9, 8, 7, 6, 5, 4, 3, 3, 0}
+1
+10
+
+Returns: 10
+
+In this case, the score of 0 will be replaced by the new score of 1.
+
+4)
+{2000000000, 19539, 19466, 19146, 17441, 17002, 16348, 16343,
+15981, 15346, 14748, 14594, 13752, 13684, 13336, 13290, 12939,
+12208, 12163, 12133, 11621, 11119, 10872, 10710, 10390, 9934,
+9296, 8844, 8662, 8653, 8168, 7914, 7529, 7354, 6016, 5428,
+5302, 5158, 4853, 4538, 4328, 3443, 3222, 2107, 2107, 1337,
+951, 586, 424, 31}
+1337
+50
+
+Returns: 46

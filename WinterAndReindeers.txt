@@ -1,0 +1,94 @@
+PROBLEM STATEMENT
+
+It's winter time! Time to play some games.
+
+
+
+
+Four reindeers are playing the following game.
+The first three of them choose three non-empty strings: A, B, and C. (The strings are not necessarily distinct.)
+Then, the fourth one (and it happens to be the youngest one) finds a string S that satisfies the following conditions:
+
+
+
+S is a subsequence of A. (I.e., either S equals A, or S can be obtained from A by removing some of its characters.)
+
+
+S is a subsequence of B.
+
+
+C is a (contiguous) substring of S.
+
+
+There is no string longer than S that satisfies the previous three conditions.
+
+
+
+
+
+You are given three vector <string>s allA, allB and allC.
+Concatenate all elements of allA, allB and allC to obtain strings A, B and C, respectively.
+Return the length of the string S.
+If there is no such string, return 0.
+
+
+DEFINITION
+Class:WinterAndReindeers
+Method:getNumber
+Parameters:vector <string>, vector <string>, vector <string>
+Returns:int
+Method signature:int getNumber(vector <string> allA, vector <string> allB, vector <string> allC)
+
+
+CONSTRAINTS
+-allA, allB and allC will each contain between 1 and 50 elements, inclusive.
+-Each element of allA, allB and allC will contain between 1 and 50 characters, inclusive.
+-Each element of allA, allB and allC will consist only of uppercase English letters ('A'-'Z').
+
+
+EXAMPLES
+
+0)
+{"X"}
+{"X", "Y"}
+{"X"}
+
+Returns: 1
+
+In this case, A = "X", B = "XY", C = "X". The longest possible string that satisfies conditions from the statement is "X". Thus, the answer is 1.
+
+1)
+{"ABCXD"}
+{"BCDEF"}
+{"CD"}
+
+Returns: 3
+
+The longest possible string in this case is "BCD".
+
+2)
+{"WE", "LOVE"}
+{"WORKING", "FOR", "SANTA"}
+{"JK"}
+
+Returns: 0
+
+No string satisfies all criteria in this case. Thus, the answer is 0.
+
+3)
+{"ABCDE"}
+{"CDEAB"}
+{"B"}
+
+Returns: 2
+
+
+
+4)
+{"ABCABDEGAXAHDJBAAHFJDXBB", "ABHFHCDALFDJDBBA", "BABBAXAXXX"}
+{"ABLOCBAXBAHAJDXBIJKA", "JBABCDAHKFIUDALPJAH", "AABACX"}
+{"AXBADXBBAB", "CDD"}
+
+Returns: 23
+
+

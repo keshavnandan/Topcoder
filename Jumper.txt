@@ -1,0 +1,176 @@
+PROBLEM STATEMENT
+
+In a certain video game, a jumping player must jump across an area which has floating hoverpads in it.  The hoverpads are organized on the screen into evenly spaced rows that move left or right across the screen with a constant speed and direction.  The jumper can only cross the area by jumping onto the pads.  If the jumper lands on a space that is not a pad, he loses the game.  If the jumper is standing on a pad that goes off the side of the screen, he loses the game.  The jumper starts out on the bottom of the screen in a non-moving row of solid ground.  He must use the pads to jump all the way to the top of the screen, where there is another non-moving row of solid ground.  The score of the game depends on how fast the player jumps to the other side.
+
+
+
+The screen is made up of 1x1 blocks and is 20 blocks wide.  Each pad is comprised of 1 or more 1x1 blocks in a horizontal line.  The jumper can only jump a distance of 1 block at a time, and can only jump from one row to another, or to another part of the pad he is currently on that is 1 block away.  At the beginning of each second, the jumper either jumps or does not move, and then the pads move a certain distance for the remainder of the second.  Jumping takes no time at all, but the jumper must wait for the next second to move again.
+
+
+
+You will be given three arguments.  patterns will be a vector <string>, with each element having a 5-character pattern in it.  In each pattern, a '#' represents hoverpad, and a '.' represents empty space.  speeds will be a vector <int> which represents the speeds of each of the patterns in blocks per second.  Positive speeds are to the right, negative speeds are to the left.  rows is a string where each character specifies what pattern and speed each row has (Note that this does not include the non-moving solid ground on the bottom and top of the screen).  Characters that appear earlier in rows represent rows that are closer to the player's starting row.  For example, if rows starts with "01", it would mean that the first row (the row closest to the starting row) is using element 0 of patterns and speeds to define its hoverpads, and the next row is using element 1.
+
+
+
+Each row starts out filled with repeated values of its given pattern.  For example, the pattern "#..##" would start out as:
+"#..###..###..###..##"
+The speed determines how fast and in what direction the pads move.  As the pads move off the screen, more pads move in on the opposite side of the screen to fill in the space.  The pads which move in take on exactly the same pattern as the pads that moved out.  For example, if the above pattern had a speed of 3, then ".##" would move off of the right side of the screen and ".##" would move in on the left side, to get:
+".###..###..###..###."
+Note that if the player were standing on either of the blocks which moved off the screen, he would lose the game.
+
+
+
+The character starts on the bottom of the screen in the leftmost column on solid ground (which has no holes and does not move).  He can wait any amount of time before jumping onto the first row of hoverpads, and may jump left or right on the solid ground.  The player may also jump back to solid ground after jumping to a hoverpad.  The player wins if he jumps off of the last row of pads to the solid ground at the top of the screen.
+
+
+
+Your method should return the minimum time it takes to get from the bottom to the top of the screen, or -1 if it is not possible.
+
+
+
+DEFINITION
+Class:Jumper
+Method:minTime
+Parameters:vector <string>, vector <int>, string
+Returns:int
+Method signature:int minTime(vector <string> patterns, vector <int> speeds, string rows)
+
+
+NOTES
+-Since it takes no time to jump, the pads do not move while the actual jump is occurring.  They move after the jumper lands.
+-A pad with the player on it also moves the player.
+
+
+CONSTRAINTS
+-patterns will have between 1 and 4 elements, inclusive
+-Each element of patterns will consist of exactly 5 characters, and will only contain the characters '#' and '.'.
+-speeds will have the same number of elements as patterns.
+-Each element of speeds will be between -10 and 10, inclusive except 0.
+-rows will have between 2 and 20 characters, inclusive.
+-Each character in rows will be a digit between 0 and the number of elements in patterns - 1, inclusive.
+
+
+EXAMPLES
+
+0)
+{"###..", "..###"}
+{1,1}
+"01"
+
+Returns: 5
+
+The screen looks like this at the beginning:
+
+
+..###..###..###..###
+###..###..###..###..
+P###################
+
+
+The player can jump up once, and then both rows of pads move to the right 1 space.  The screen is now:
+
+
+#..###..###..###..##
+.P##..###..###..###.
+####################
+
+
+The player can now jump twice to the right.  By this time, the pads have moved over twice:
+
+
+###..###..###..###..
+#..##P..###..###..##
+####################
+
+
+Now, the player jumps up to the second row of pads:
+
+
+.###..P##..###..###.
+##..###..###..###..#
+####################
+
+
+And finally, jumps up one more time to victory.
+
+1)
+{"###..", "..###"}
+{5,5}
+"01"
+
+Returns: 5
+
+The player cannot follow the same pattern as above, because he would lose when the pads go off the right side of the screen.  Instead, he can jump to the right twice, and then he has a straight path up.  In the following sequence, remember that the pads move to the right 5 spaces, even though they do not appear to move from frame to frame:
+
+
+..###..###..###..###
+###..###..###..###..  Start
+P###################
+
+..###..###..###..###
+###..###..###..###..  Right
+#P##################
+
+..###..###..###..###
+###..###..###..###..  Right
+##P#################
+
+..###..###..###..###
+###..##P..###..###..  Up (pad carries player right 5 spaces)
+####################
+
+..###..###..P##..###
+###..###..###..###..  Up (pad carries player right 5 spaces)
+####################
+
+Final jump up.
+
+
+2)
+{"....#", "....#"}
+{4,5}
+"0111"
+
+Returns: 9
+
+In this example, the only way to make it up to the top is to wait for the first row of pads to line up with the left-most column.  Then the player barely has time to jump up through all three other rows of pads before jumping to the very top.  It takes 4 seconds for the pads to line up with the player, so he waits for 4 seconds, then he jumps up 5 times to get to the top.
+
+3)
+{"#....", "#...."}
+{-4,-5}
+"0111"
+
+Returns: 24
+
+This is the same as the last example, except everything is reversed.  Since the only safe place to jump off the bottom is the right-most square, the player must first jump right 19 spaces before jumping up 5 times.
+
+4)
+{"#####","#####"}
+{10,10}
+"01"
+
+Returns: -1
+
+Although a straight path exists, the player cannot jump up twice without hitting the wall on the right.
+
+5)
+{"#####","#####","....."}
+{1,-1,1}
+"01010101010101010102"
+
+Returns: -1
+
+Be careful of timeouts.
+
+6)
+{"#....", "#....", "#...."}
+{5,-5,6}
+"2012"
+
+Returns: 12
+
+
+Here, in order to use 12 jumps, the player must jump back at least once.  One possible ordering of jumps is:
+
+
+Right, Right, Right, Right, Up, Up, Up, Stand, Down, Up, Up, Up.

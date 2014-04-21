@@ -1,0 +1,98 @@
+PROBLEM STATEMENT
+
+The base of a number system is the number of different values each digit can represent.  For example, in base-2 (binary), there are 2 values each digit can take: 0 and 1.  In base-10, a digit can take values 0 through 9, inclusive.  Sometimes, it is difficult to determine which base a numerical expression is in.  An equation is valid for a given base if all of the digits are less than the base, and the numerical meaning of the equation is correct.  For example, "1+1=10" for base-10 satisfies the rule that the digits are all less than 10, but 1+1 = 2 in base-10, so the equation is not correct for base-10.
+
+
+
+If we assume that the characters '0'-'9' represent the values 0 - 9, and the characters 'A'-'J' represent the values 10 - 19, then we can represent numbers with a base up to 20.  The equation will be in the following form:
+
+
+<num>+<num>=<num>
+
+
+Where each <num> is a string consisting of characters '0'-'9' and 'A'-'J', which does not have any extra leading zeros, and is at most 5 digits long.
+
+
+
+Given an equation as defined above, you should return which bases in the range of 2 to 20, inclusive, are valid for the equation.  Return the bases in a vector <int> in ascending order.
+
+
+DEFINITION
+Class:BaseMystery
+Method:getBase
+Parameters:string
+Returns:vector <int>
+Method signature:vector <int> getBase(string equation)
+
+
+CONSTRAINTS
+-equation will be of the form "<num>+<num>=<num>"
+-Each <num> in equation will have between 1 and 5 characters, inclusive.
+-Each <num> in equation will consist only of numeric digits '0' - '9' and capital letters 'A' - 'J', and will not have extra leading zeros.
+
+
+EXAMPLES
+
+0)
+"1+1=2"
+
+Returns: { 3,  4,  5,  6,  7,  8,  9,  10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20 }
+
+
+The only base which this does not work for is base-2.  In base 2, 2 is represented by "10"
+
+
+1)
+"1+1=10"
+
+Returns: { 2 }
+
+
+The same equation valid for base 2.
+
+
+2)
+"1+1=3"
+
+Returns: { }
+
+
+1+1 is never 3, no matter what base you are in.
+
+
+3)
+"ABCD+211=B000"
+
+Returns: { 14 }
+
+
+In base-14, the digits are 0-9, A-D.  Adding one to the ones column yields 10 base-14, which carries over to make the 10's column a 'D'.  Adding 1 to that column yields 10 again, which carries and makes the 100's column a 'C'.  Adding 2 to C yields 10 again, which adds 1 to the 1000's column, resulting in B000.
+
+
+4)
+"ABCD+322=B000"
+
+Returns: { 15 }
+
+
+For base-15, we have increased the number required to wrap to 0 by 1.
+
+
+5)
+"1+0=1"
+
+Returns: { 2,  3,  4,  5,  6,  7,  8,  9,  10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20 }
+
+
+This is valid for all bases.
+
+
+6)
+"GHIJ+1111=HJ00"
+
+Returns: { 20 }
+
+7)
+"1234+8765=9999"
+
+Returns: { 10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20 }

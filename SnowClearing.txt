@@ -1,0 +1,137 @@
+PROBLEM STATEMENT
+Square City got a new snow plow. Unfortunately, it is impossible for the plow to do a 180 degree turn at an intersection, and due to traffic rules it is not allowed to drive backwards. Soon it was realized that some streets can't be reached by the new snow plow and it is your job to calculate how many.
+You are given a map of the city, consisting of '|', '+', '-' and ' '. For example, a possible map may look like this: 
+
++-+-+-+-+-+-+
+| | | | | | |
++-+ +-+ +-+ +
+|   |   |    
++-+-+-+-+-+-+
+
+Each '+' stands for an intersection, whereas '-' or '|' denotes a single two-way street. 
+In addition to the map, you are given the row number (counted from the top) and column number (counted from the left) of the snow plow's garage (both indexed from 1), where the plow starts its snow clearing tours. Note that only the rows and columns containing intersections are counted. After the snow clearing, the plow must be able to get back to the garage. Therefore, a street forming a dead end is not reachable because at the end intersection, the only possible way back would be using the same street, and a 180 degree turn is not possible. The only exception to this is that the plow can turn in any direction at the garage, so it is not important in which direction the plow is initially facing. Determine the number of streets which can't be cleared by the snow plow because there is no way back to the garage. In the example above, if the garage is at (2,7), there are two streets which can't be cleared: the streets connecting (3,5) with (3,6) and (3,6) with (3,7).
+
+DEFINITION
+Class:SnowClearing
+Method:unreachable
+Parameters:vector <string>, int, int
+Returns:int
+Method signature:int unreachable(vector <string> citymap, int row, int column)
+
+
+NOTES
+-If citymap contains n elements, and each element has length m, then there are (n+1)/2 * (m+1)/2 intersections.
+
+
+CONSTRAINTS
+-citymap contains an odd number (between 3 and 49, inclusive) of elements.
+-Each element of citymap contains the same number of characters.
+-Every second element of citymap consists of an odd number (between 3 and 49, inclusive) of characters from the set {'|',' '}, where character '|' can only appear at even positions in the string (positions 0, 2, ...).
+-All other elements of citymap consists of an odd number (between 3 and 49, inclusive) of characters from the set {'+','-',' '}, where character '+' appears at every even position in the string (position 0, 2, ...).
+-row will be between 1 and (1 + number of elements in citymap)/2, inclusive.
+-column will be between 1 and (1 + length of elements in citymap)/2, inclusive.
+-There will always be a path between each pair of intersections using the available streets.
+
+
+EXAMPLES
+
+0)
+{"+-+-+-+-+-+-+"
+,"| | | | | | |"
+,"+-+ +-+ +-+ +"
+,"|   |   |    "
+,"+-+-+-+-+-+-+"}
+2
+7
+
+Returns: 2
+
+This is the example from above. The snow plow starts at the middle intersection, on the far right of the city. Since the snow plow can turn at the garage, it can do several tours and clear all streets but the two streets connecting (3,5) to (3,6) and (3,6) to (3,7).
+
+1)
+{"+-+"
+,"| |"
+,"+ +"}
+1
+1
+
+Returns: 3
+
+In this example, the snow plow can't clear any street, since it would get stuck at (2,1) or (2,2).
+
+2)
+{"+-+-+"
+,"| | |"
+,"+-+ +"}
+1
+3
+
+Returns: 1
+
+Note that it is not important in which direction the snow plow is initally facing. Therefore the only street it can't clear is the street connecting (1,3) to (2,3).
+
+3)
+{"+-+-+"
+,"|   |"
+,"+-+-+"}
+2
+2
+
+Returns: 0
+
+Here the snow plow can clear every street.
+
+4)
+{"+ +-+ +-+-+ +-+-+ +-+-+-+-+-+-+-+-+-+-+ +-+-+-+ +"
+,"| |   | |     |   |   |         |     | |     | |"
+,"+ +-+-+-+ +-+-+-+ +-+ +-+-+-+-+ +-+-+-+ +-+ +-+-+"
+,"| | |       |   | |   |   |   |   |     | |   |  "
+,"+ +-+-+ +-+-+ +-+-+-+-+-+-+-+ +-+ +-+ +-+ +-+ +-+"
+,"|     | | | | |   |             |     |   | |   |"
+,"+-+-+ +-+-+-+ +-+ +-+ + +-+-+-+-+-+ +-+-+ +-+-+-+"
+,"|       | |     |     |   |         |   | |     |"
+,"+-+-+-+ +-+-+-+-+-+-+-+-+-+-+ +-+ +-+ +-+-+-+-+-+"
+,"      |   | |     |   | |     | | |   | |       |"
+,"+ +-+-+-+-+ + +-+ +-+ +-+ +-+-+ +-+-+-+-+-+ +-+-+"
+,"| |   | |     |   |         |   | | |     |   | |"
+,"+-+-+-+-+-+ +-+-+ +-+-+-+ +-+-+ +-+-+ +-+-+ +-+-+"
+,"          |   |   |   |   | |                    "
+,"+-+-+-+-+-+-+ +-+-+-+ + +-+-+ +-+ +-+-+-+ +-+-+ +"
+,"|                     | |     |   |   | |   | | |"
+,"+ +-+-+-+-+-+-+ + +-+-+-+-+-+-+-+-+ +-+-+-+ + +-+"
+,"| |     |   | | |   | | | |       | |   | | | | |"
+,"+-+-+-+ +-+-+-+-+ +-+ + +-+ +-+-+-+ +-+-+ +-+ +-+"
+,"    | |   | | |   |               |   |          "
+,"+-+ +-+-+-+-+-+ +-+ + +-+-+-+-+-+-+ + + +-+-+ +-+"
+,"  | | |         | | | |   |   | | | | | | | | |  "
+,"+-+-+ + +-+ +-+ +-+-+-+-+ + + + +-+-+ +-+-+-+-+-+"
+,"    | | | | | | |         | | |       |     | |  "
+,"+ +-+ + + +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ +-+-+"
+,"| |   | |     | |   |   |   |   |   | |         |"
+,"+-+-+ +-+-+-+-+ +-+ + +-+-+-+-+ +-+ +-+-+-+-+-+-+"
+,"      | |   | | | |     |       | |         | |  "
+,"+-+ + +-+-+-+-+ + +-+-+-+ +-+-+-+-+ +-+ +-+-+-+-+"
+,"  | | | |   |   |     | |   |   | |   | | |   |  "
+,"+-+-+-+-+-+-+ +-+-+-+-+-+-+ +-+ +-+ +-+ +-+-+ +-+"
+,"|     | | |   |     |     |   | | |   |   | | | |"
+,"+-+-+-+-+-+-+ + +-+-+-+-+-+ +-+-+-+-+ +-+ + +-+-+"
+,"| | | | |   | | |   | |         |     | | | |   |"
+,"+ +-+ +-+-+ + + +-+-+ + + +-+-+-+-+ +-+ +-+-+-+-+"
+,"  | | |   |     | |     |         |   | |   | | |"
+,"+ +-+ +-+-+-+ +-+-+-+-+ +-+-+-+ +-+-+-+ +-+-+ + +"
+,"|     | |     |   |           |   | | |   | | |  "
+,"+-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+ +-+-+ +-+-+ +-+"
+,"|         |     |       | |   |       | | | | |  "
+,"+-+-+-+ +-+-+-+-+-+-+-+-+ +-+ +-+ +-+-+ +-+-+-+-+"
+,"        |   |   | | | | | | | | | | | | | |     |"
+,"+-+-+-+-+-+-+-+ +-+-+ +-+-+ +-+-+-+ +-+ + +-+-+ +"
+,"      | | | |       | |     | |   |       |   | |"
+,"+ +-+-+-+-+-+ +-+ +-+ +-+-+-+ +-+-+-+-+-+ + +-+-+"
+,"| | |       | | | |       |     | | | |       | |"
+,"+-+-+-+-+-+-+-+ + +-+-+-+ + +-+-+-+-+-+-+-+ +-+ +"
+,"      |   |   | |   | |         |     | | | | | |"
+,"+-+-+-+-+-+-+-+-+-+ +-+-+-+-+ +-+-+-+ + + +-+-+ +"}
+10
+12
+
+Returns: 160

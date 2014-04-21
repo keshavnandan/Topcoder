@@ -1,0 +1,181 @@
+PROBLEM STATEMENT
+Fox Ciel is teaching her friend Jiro to play Go.
+Ciel has just placed some white tokens onto a board.
+She now wants Jiro to find the best possible sequence of moves.
+(This is defined more precisely below.)
+
+
+You are given a vector <string> board.
+Character j of element i of board represents the cell (i,j) of the board:
+'o' is a cell with a white token and '.' is an empty cell.
+At least one cell on the board will be empty. Note that there are currently no black tokens on the board.
+
+
+Each Jiro's move consists of adding a single black token to the board.
+The token must be placed onto an empty cell.
+Once Jiro places the token, some white tokens will be removed from the board according to the rules described in the next paragraphs.
+
+
+The tokens on the board can be divided into connected components using the following rules:
+If two tokens of the same color lie in cells that share an edge, they belong to the same component.
+Being in the same component is transitive: if X lies in the same component as Y and Y lies in the same component as Z, then X lies in the same component as Z.
+
+
+Note that each component of tokens is either completely white or completely black. Each component of tokens is processed separately.
+For each component we check whether it is adjacent to an empty cell.
+(That is, whether there are two cells that share an edge such that one of them is empty and the other contains a token from the component we are processing.)
+If there is such an empty cell, the component is safe and its tokens remain on the board.
+If there is no such empty cell, the component is killed and all its tokens are removed from the board.
+There are also the following additional rules:
+
+All white components must be processed before black ones (in any order).
+If at least one white token was removed, then black components must not be processed at all.
+Otherwise, all black components must be processed (in any order).
+If at least one black token was removed, this is called a "suicide move". Such moves are invalid and Jiro is not allowed to make them.
+
+
+
+Jiro's score is the total number of white tokens removed from the board after each of his moves is evaluated.
+Return the maximal score he can get for the given board.
+
+
+DEFINITION
+Class:FoxAndGo2
+Method:maxKill
+Parameters:vector <string>
+Returns:int
+Method signature:int maxKill(vector <string> board)
+
+
+CONSTRAINTS
+-n will be between 2 and 19, inclusive.
+-board will contain exactly n elements.
+-Each element in board will contain exactly n characters.
+-Each character in board will be 'o' or '.'.
+-There will be at least 1 '.' in board.
+
+
+EXAMPLES
+
+0)
+{"...",
+ ".o.",
+ "..."}
+
+Returns: 1
+
+
+.A.
+BoC
+.D.
+
+Jiro can put black pieces at A,B,C,D (in any order).
+
+
+1)
+{"o.",
+ "oo"}
+
+Returns: 3
+
+Jiro needs to place the black token into the empty cell. After that, the white component becomes unsafe and will be killed. The black component won't be processed, so the black token will remain on board.
+
+2)
+{".o.o.",
+ "o.o.o",
+ ".o.o.",
+ "o.o.o",
+ ".o.o."}
+
+Returns: 0
+
+Regardless of which empty cell he chooses, he will never kill any white component with this single black token.
+On the other hand, his black token would always be killed.
+Therefore, Jiro has no valid move on this board.
+
+3)
+{".o.o.",
+ "o.o.o",
+ ".o.o.",
+ "o.o.o",
+ "....."}
+
+Returns: 10
+
+
+
+4)
+{".o.o.o.o.o.",
+ "o.ooo.ooo.o",
+ ".o.......o.",
+ "oo.......oo",
+ ".o...o...o.",
+ "o...o.o...o",
+ ".o...o...o.",
+ "oo.......oo",
+ ".o.......o.",
+ "o.ooo.ooo.o",
+ ".o.o.o.o.o."}
+
+Returns: 4
+
+
+
+5)
+{"...ooo.....",
+ "...o.o.....",
+ ".ooo.ooo...",
+ ".o.....o...",
+ ".ooo.ooo...",
+ "...o.o.....",
+ "...ooo.....",
+ "....o......",
+ "....o...ooo",
+ "....ooooo.o",
+ "........ooo"}
+
+
+Returns: 38
+
+
+
+6)
+{"ooooooooooo",
+ "o.........o",
+ "o...ooo...o",
+ "o...o.o...o",
+ "o...ooo...o",
+ "o....o....o",
+ "o....oooooo",
+ "o..........",
+ "o.......ooo",
+ "o.......o.o",
+ "ooooooooooo"}
+
+
+Returns: 0
+
+Sometimes, making no moves at all is an optimal strategy.
+
+
+7)
+{"oo.o.ooo.o..o..",
+ "...ooo.o..oo.oo",
+ "o..o.o.ooo.o..o",
+ "oo.......oo.ooo",
+ "..oo.o.o.o.ooo.",
+ "..oo..oo..o.ooo",
+ "oo.o.oo..o.oooo",
+ ".oo.o..ooo.o.oo",
+ "o..o.o.o.o.oo..",
+ ".oo.oo...o....o",
+ "o.o.oo....oo..o",
+ ".o.o..o.oo..ooo",
+ "o.o.o..o..o....",
+ "ooo.oooooooo..o",
+ "o..oo.o..o.ooo."}
+
+
+Returns: 60
+
+

@@ -1,0 +1,109 @@
+PROBLEM STATEMENT
+Spelling in the English language doesn't make sense.  Congress has enacted a plan for orthographical reform (loosely based on Mark Twain's plan for the improvement of English spelling) which will change the spelling of words in the English language gradually over the next 7 years. The plan is as follows:
+
+Year 1:
+
+   - If a word starts with "x", replace the "x" with a "z".
+   - Change all remaining "x"s to "ks"s.
+
+Year 2:
+
+   - Change all "y"s to "i"s.
+
+Year 3:
+
+   - If a "c" is directly followed by an "e" or "i", change the "c" to an "s".
+
+Year 4:
+
+   - If a "c" is directly followed by a "k", remove the "c".  Keep applying this rule as necessary (Example: "cck" becomes "k".)
+
+Year 5:
+
+   - If a word starts with "sch", change the "sch" to a "sk".
+   - If a "ch" is directly followed by an "r", change the "ch" to a "k".
+   - After applying the above rules, change all "c"s that are not directly followed by an "h", to a "k".  (This includes all "c"s that are the last letter of a word.)
+
+Year 6:
+
+   - If a word starts with "kn" change the "kn" to an "n".
+
+Year 7:
+
+   - Change all double consonants of the same letter to a single consonant. A consonant is any letter that is not one of "a, e, i, o, u." (Example: "apple" becomes "aple"). Keep applying this rule as necessary (Example: "zzz" becomes "z".)
+
+
+The plan requires that rules for each year are followed in the order they are presented, and changes for each year occur after all the changes from previous years.
+
+Write a class Twain, which contains a method getNewSpelling. getNewSpelling takes as parameters an int year representing the number of years that have passed since the plan to improve the English language began, and a string phrase representing the English phrase to convert. For the purposes of the plan, a word is a sequence of lowercase letters ('a'-'z') bounded by spaces or the start/end of phrase.  The method returns a string representing the converted phrase.
+
+DEFINITION
+Class:Twain
+Method:getNewSpelling
+Parameters:int, string
+Returns:string
+Method signature:string getNewSpelling(int year, string phrase)
+
+
+CONSTRAINTS
+-year will be between 0 and 7, inclusive
+-phrase will be between 0 and 50 characters, inclusive
+-phrase will contain only lowercase letters ('a'-'z') and spaces (' ').
+-phrase will not contain three or more of the same consonant in a row
+
+
+EXAMPLES
+
+0)
+1
+"i fixed the chrome xerox by the cyclical church"
+
+Returns: "i fiksed the chrome zeroks by the cyclical church"
+
+In year 1, the first "x" in "xerox" is changed to a "z".  Then, the "x"s in "fixed" and "zerox" are changed to "ks"s.
+
+1)
+2
+"i fixed the chrome xerox by the cyclical church"
+
+Returns: "i fiksed the chrome zeroks bi the ciclical church"
+
+In year 2, the "y"s in "by" and "cyclical" are changed to "i"s.
+
+2)
+0
+"this is unchanged"
+
+Returns: "this is unchanged"
+
+Since the year is 0, no changes occur.
+
+3)
+7
+"sch kn x xschrx cknnchc cyck xxceci"
+
+Returns: "sk n z zskrks nchk sik zksesi"
+
+In year 1, the phrase becomes "sch kn z zschrks cknnchc cyck zksceci" due to rules concerning the letter "x".  In year 2, all "y"s are changed to "i"s yielding "sch kn z zschrks cknnchc cick zksceci".  In year 3, "ce" and "ci" are changed to "se" and "si" yielding "sch kn z zschrks cknnchc sick zkssesi".  In year 4, "ck" is changed to "k" and the phrase becomes "sch kn z zschrks knnchc sik zkssesi".  In year 5, words that begin with "sch" are made to begin with "sk", "chr" is changed to "kr", and all "c"s not followed by an "h" are changed to "k" yielding "sk kn z zskrks knnchk sik zkssesi".  In year 6, words that start with "kn" now start with "n" and the phrase becomes "sk n z zskrks nnchk sik zkssesi".  Finally, in year 7, double consonants are removed yielding the final result.
+
+4)
+7
+"  concoction   convalescence   cyclical   cello   "
+
+Returns: "  konkoktion   konvalesense   siklikal   selo   "
+
+Beware of extra spaces.
+
+5)
+7
+""
+
+Returns: ""
+
+Don't forget the empty case.
+
+6)
+7
+"cck xzz aaaaa"
+
+Returns: "k z aaaaa"
