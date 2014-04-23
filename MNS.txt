@@ -1,0 +1,51 @@
+PROBLEM STATEMENT
+
+9 numbers need to be arranged in a magic number square.  A magic number square is a square of numbers that is arranged such that every row and column has the same sum.  For example:
+
+
+1 2 3
+3 2 1
+2 2 2
+
+
+Create a class MNS containing a method combos which takes as an argument a vector <int> numbers and returns the number of distinct ways those numbers can be arranged in a magic number square.  Two magic number squares are distinct if they differ in value at one or more positions.  For example, there is only one magic number square that can be made of 9 instances of the same number.
+
+
+DEFINITION
+Class:MNS
+Method:combos
+Parameters:vector <int>
+Returns:int
+Method signature:int combos(vector <int> numbers)
+
+
+NOTES
+-Unlike some versions of the magic number square, the numbers do not have to be unique.
+
+
+CONSTRAINTS
+-numbers will contain exactly 9 elements.
+-each element of numbers will be between 0 and 9, inclusive.
+
+
+EXAMPLES
+
+0)
+{1,2,3,3,2,1,2,2,2}
+
+Returns: 18
+
+1)
+{4,4,4,4,4,4,4,4,4}
+
+Returns: 1
+
+2)
+{1,5,1,2,5,6,2,3,2}
+
+Returns: 36
+
+3)
+{1,2,6,6,6,4,2,6,4}
+
+Returns: 0
