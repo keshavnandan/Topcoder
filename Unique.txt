@@ -1,0 +1,58 @@
+PROBLEM STATEMENT
+
+You are given a string S of lowercase English letters.
+
+
+
+Some of the letters may occur multiple times in S.
+For example, there are three 'a's and two 'n's in "banana".
+
+
+
+You dislike duplicates.
+For each letter, you want to keep only its first occurrence and delete all the others.
+Return the string obtained from S by deleting the duplicates of each letter, as described above.
+
+
+DEFINITION
+Class:Unique
+Method:removeDuplicates
+Parameters:string
+Returns:string
+Method signature:string removeDuplicates(string S)
+
+
+CONSTRAINTS
+-S will contain between 1 and 1000 characters, inclusive.
+-Each character of S will be a lowercase English letter ('a'-'z').
+
+
+EXAMPLES
+
+0)
+"banana"
+
+Returns: "ban"
+
+
+
+1)
+"aardvark"
+
+Returns: "ardvk"
+
+
+
+2)
+"xxxxx"
+
+Returns: "x"
+
+
+
+3)
+"topcoder"
+
+Returns: "topcder"
+
+
