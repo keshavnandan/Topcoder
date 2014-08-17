@@ -1,0 +1,143 @@
+PROBLEM STATEMENT
+Let an R by C (also notated as RxC) matrix mean a matrix with R rows and C columns.  Also, for x between 1 and R, inclusive, and y between 1 and C inclusive, let element (x,y) represent the element at the xth row and yth column (both 1-indexed) of a given R by C matrix.
+Matrix multiplication works as follows:
+For an L by M matrix A and an M by N matrix B, define an L by N matrix P such that A * B = P, and each element (x,y) of matrix P is equal to the sum of the product of each element of the xth row of A with the equivalently indexed element of the yth column of B.
+For example, say we have a 4x2 matrix A and a 2x3 matrix B:
+
+A={{ a1, a2 },
+   { a3, a4 },
+   { a5, a6 },
+   { a7, a8 }}
+
+B={{ b1, b2, b3 },
+   { b4, b5, b6 }}
+
+Then 4x3 matrix P = A * B =
+{{ b1*a1+b4*a2, b2*a1+b5*a2, b3*a1+b6*a2 },
+ { b1*a3+b4*a4, b2*a3+b5*a4, b3*a3+b6*a4 },
+ { b1*a5+b4*a6, b2*a5+b5*a6, b3*a5+b6*a6 },
+ { b1*a7+b4*a8, b2*a7+b5*a8, b3*a7+b6*a8 }}
+
+Matrix addition works as follows:
+For an L by M matrix A and an L by M matrix B, define an L by M matrix S such that A + B = S, and each element (x,y) of matrix C is equal to the sum of the two elements (x,y) in A and B.
+For example, say we have a 2x3 matrix A and a 2x3 matrix B:
+
+A={{ a1, a2, a3 },
+   { a4, a5, a6 }}
+
+B={{ b1, b2, b3 },
+   { b4, b5, b6 }}
+
+Then 2x3 matrix S = A + B =
+{{ a1+b1, a2+b2, a3+b3 }
+ { a4+b4, a5+b5, a6+b6 }}
+
+
+Write a method multiply which takes three vector <string> inputs representing matrix A, matrix B, and matrix C.  Each element will be a string representing a row of that matrix as follows:
+"I1 I2 I3 I4 I5 ... IN" (quotes added for clarity)
+where each I is an integer.
+
+The fourth argument is a string representing an equation between A, B, and C.
+Return the vector <string> represention of the solution matrix to the equation, in the same form as the inputs.
+
+The equation follows the standard order of operations.  That is, first do any multiplications, going left to right.  Then do any additions, going left to right.  After each multiplication or addition, put an intermediate matrix in place of the two argument matrices.  For example (quotes added for clarity):
+"A*B+C*A"
+You would first multiply A*B, and replace those two matrices with an intermediate matrix M:
+"M+C*A"
+You would then multiply C*A, and replace those two matrices with an intermediate matrix N:
+"M+N"
+You would finally add M+N, returning the final result.
+If the equation is not valid for the given matrices, return an empty String[].  The equation is not valid if:
+*at any point, two matrices (A, B, C, or any intermediates) must be multiplied, in which the number of rows in the second matrix is not equal to the number of columns in the first matrix.
+*at any point, two matrices (A, B, C, or any intermediates) must be added, but do not have the same dimensions.
+*at any point, one of the intermediate matrices contains a value that is greater than 2147483647 or less than -2147483648.
+In summary, given the 3 matrices and an equation involving those three matrices, return the resulting matrix in the described vector <string> format, or an empty vector <string> if the equation is not valid for the given matrices.
+
+
+DEFINITION
+Class:MatArith
+Method:calculate
+Parameters:vector <string>, vector <string>, vector <string>, string
+Returns:vector <string>
+Method signature:vector <string> calculate(vector <string> A, vector <string> B, vector <string> C, string equation)
+
+
+NOTES
+-The return must be formatted exactly as the inputs.  That means no leading/trailing or extra spaces.
+
+
+CONSTRAINTS
+-Each vector <string> will contain 1 to 10 element, inclusive.
+-Each element of A, B and C will contain between 1 and 50 characters, inclusive.
+-All elements of A, B and C will be a space-delimited list of integers, with one space between integers, and no leading or trailing spaces.
+-All elements of A, B and C will contain only the numbers [0-9] inclusive, the negative sign ('-') and spaces.
+-The number of integers represented by each element of A, B and C will be between 1 and 10, inclusive.
+-The number of integers represented by each element of A will be the same as the number of integers represented by every other element of A.
+-The number of integers represented by each element of B will be the same as the number of integers represented by every other element of B.
+-The number of integers represented by each element of C will be the same as the number of integers represented by every other element of C.
+-Each integer represented in A, B or C will be between -10 and 10, inclusive.
+-Each integer represented in A, B or C will be a correctly formatted integer, without leading zeros.
+-equation will contain between 1 and 49 characters, inclusive.
+-equation can only contain the capital letters 'A', 'B', and 'C', and the two operands '+' and '*'.
+-The first and last characters of equation will be letters, and each pair of consecutive letters in equations will have exactly one operand between them.
+
+
+EXAMPLES
+
+0)
+{"1 2 3","2 3 4"}
+{"1 2","3 4","5 6"}
+{"1"}
+"A*B"
+
+Returns: { "22 28",  "31 40" }
+
+A*B={{ 1*1+2*3+3*5, 1*2,2*4,3*6 },
+     { 2*1+3*3+4*5, 2*2+3*4+4*6 }}
+
+
+1)
+{"1 2 3","2 3 4"}
+{"1 2","3 4","5 6"}
+{"1"}
+"A+B+C"
+
+Returns: { }
+
+A+B is calculated first, but the two matrices do not have the same dimensions.
+
+
+2)
+{"3 5 7","5 4 3","-2 3 2"}
+{"3"}
+{"1 1 1","2 5 2","3 5 -3"}
+"A+C"
+
+Returns: { "4 6 8",  "7 9 5",  "1 8 -1" }
+
+
+A+C={{ 3+1,  5+1, 7+1  },
+     { 2+5,  5+4, 2+3  },
+     { -2+3, 3+5, 2+-3 }}
+
+
+
+
+3)
+{"10 0","0 0"}
+{"0"}
+{"0"}
+"A*A*A*A*A*A*A*A*A"
+
+Returns: { "1000000000 0",  "0 0" }
+
+4)
+{"10 0","0 0"}
+{"0"}
+{"0"}
+"A*A*A*A*A*A*A*A*A*A"
+
+Returns: { }
+
+An intermediate value (10,000,000,000) is greater than 2,147,483,647.
+
