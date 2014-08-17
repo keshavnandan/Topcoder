@@ -15,18 +15,7 @@ class DropCoins {
         {
             int m = b.size();
             int n = b[0].size();
-            vector<int> row, col, rr, cc;
-            row.resize(m); rr.resize(m);
-            col.resize(n); cc.resize(n);
-            fill(row.begin(), row.end(), 0);
-            fill(col.begin(), col.end(), 0);
-            for(int i = 0; i < m; i++)
-            for(int j = 0; j < n; j++){
-                if(b[i][j] == 'o'){
-                    row[i]++;
-                    col[j]++;
-                }
-            }
+
             int ret = 1000000;
             for(int l = 0; l <= n; l++)
             for(int r = 0; l+r<=n; r++)
