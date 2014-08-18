@@ -8,6 +8,7 @@
 #include <numeric>
 #include <climits>
 #include <cstdio>
+#include <string>
 using namespace std;
 typedef long long ll;
 typedef vector<int> vi;
@@ -71,12 +72,10 @@ vs from(vvl a){
     aa.resize(n);
     for(int i = 0; i < n; i++){
         string s;
-        stringstream ss(s);
         for(int j = 0; j < m; j++)
-            if(j == 0) ss<<a[i][j];
-            else ss<<" "<<a[i][j];
-        aa[i] = ss.str();
-//        cout<<aa[i]<<endl;
+        if(j == 0) s += to_string(a[i][j]);
+            else s += " " + to_string(a[i][j]);
+        aa[i] = s;
     }
     return aa;
 }
