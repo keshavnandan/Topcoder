@@ -1,0 +1,99 @@
+PROBLEM STATEMENT
+
+"Step right up!" cries the barker. "Step up to play a simple game of
+arithmetic! Beat our man and we'll pay out five to two!"
+
+
+You watch carnival patrons stepping up to try their hand at Fifteen. The
+game is played on a long, thin table divided into nine sections marked
+with the numerals 1 through 9. Behind the table stands a carnival worker,
+called the dealer, who makes the first move of the game. The dealer
+places a quarter (twenty-five cents) on a numeral of his choosing. Then the
+patron puts a dime (ten cents) on some other numeral. Then it is the dealer's turn again, and moves proceed in alternation. With each move, one may only choose a numeral that hasn't been covered yet. The
+object of the game is to use one's coins to cover three numerals that
+add up to 15. It doesn't matter if a player has covered more than three
+numerals, as long as exactly three of them sum to 15. The game ends
+as soon as such a sum is formed, or, at the latest, once every numeral
+has been covered. If the patron makes 15, he wins all the coins on the
+table. Otherwise, the dealer keeps the money.
+
+
+You've been watching for a while, and the dealer almost always wins. Regardless
+of the five-to-two payout, the dealer has a
+tremendous advantage. Not only does he get the first move, but he can win
+by making 15 before the patron or merely by preventing the patron from
+making 15. Then again, if the dealer always won, the supply of patrons
+would quickly dry up. Sometimes the dealer makes a weak move that the
+patron can exploit to win the game.
+
+
+Given a record of the moves made so far, the dealer having made the
+most recent move, determine whether the patron can win the game. The record is a vector <int> containing, in order of play, the numerals covered so far. The moves are guaranteed to be such that the game has not ended yet. If,
+regardless of the patron's next move, the dealer wins by playing optimally
+from this point on, return the string "LOSE" (quotes for clarity only). If there is
+a way for the patron to win regardless of the dealer's moves, return a
+string in the format "WIN X", where X is replaced by the
+numeral the patron should cover next in order to win. If several moves
+are equally promising, choose the one with the lowest numerical value.
+
+
+
+DEFINITION
+Class:Fifteen
+Method:outcome
+Parameters:vector <int>
+Returns:string
+Method signature:string outcome(vector <int> moves)
+
+
+NOTES
+-When returning a result of the form "WIN X", make sure to use exactly one space character.
+
+
+CONSTRAINTS
+-moves contains an odd number of elements
+-moves contains between one and seven elements, inclusive
+-each element in moves is between 1 and 9, inclusive
+-moves contains no duplicates
+-moves describes a game of Fifteen that is in progress, meaning that neither player has made 15 yet
+
+
+EXAMPLES
+
+0)
+{7, 5, 9, 6, 8, 1, 2}
+
+Returns: "WIN 4"
+
+The dealer has covered 7, 9, 8, and 2, while the patron has covered 5, 6, and 1. The sole remaining numerals are 4 and 3. If the patron covers the 3, he fails to make 15. But covering 4 wins him the game, since 5+6+4=15.
+
+1)
+{4, 8, 6, 5, 2}
+
+Returns: "LOSE"
+
+The available numerals are 1, 3, 7, and 9. If the patron's choice is something other than 9, the dealer can win on his next turn because 4+2+9=15. But if the patron covers the 9, the dealer can next play 7, which wins the game because 6+2+7=15. Either way, the patron is doomed.
+
+2)
+{2, 4, 7, 6, 9, 8, 5}
+
+Returns: "WIN 1"
+
+The patron wins either by covering 1, which yields 6+8+1=15, or by covering 3 to make 4+8+3=15. Since lower numerical values are preferred, we settle on 1.
+
+3)
+{9, 2, 1, 6, 3, 4, 8}
+
+Returns: "WIN 5"
+
+The patron can win by covering 5 or 7, so we choose 5.
+
+4)
+{1}
+
+Returns: "LOSE"
+
+5)
+{6, 3, 7, 8, 1}
+
+Returns: "WIN 2"
