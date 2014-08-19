@@ -13,10 +13,6 @@ typedef vector<vi> vvi;
 typedef vector<string> vs;
 typedef vector<vs> vvs;
 typedef set<int> si;
-int maxv = 1000000;
-int pd[4] = {0, 2, 4, 8};
-int pp[4] = {1, 3, 5, 7};
-vi v = {1,2,3,4,5,6,7,8,9};
 
 class Fifteen {
         public:
