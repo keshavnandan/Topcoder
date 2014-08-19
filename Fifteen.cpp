@@ -6,6 +6,7 @@
 #include <map>
 #include <cstring>
 #include <climits>
+#define cmpl(A, X) for(int i = 1; i <= 9; i++) if(find((A).begin(), (A).end(), i) == (A).end()) (X).push_back(i);
 using namespace std;
 typedef vector<int> vi;
 typedef vector<vi> vvi;
@@ -13,60 +14,48 @@ typedef vector<string> vs;
 typedef vector<vs> vvs;
 typedef set<int> si;
 int maxv = 1000000;
+int pd[4] = {0, 2, 4, 8};
+int pp[4] = {1, 3, 5, 7};
+vi v = {1,2,3,4,5,6,7,8,9};
 
 class Fifteen {
         public:
         //P plays maxv means P lose and win otherwise
-        int fp(si D, si P, si X){
-            int minv  = maxv;
-            for(int c : X)
-                for(int a : P)
-                    for(int b : P)
-                        if(a != b && a+b+c == 15) minv = min(minv, c);
-            if(X.size() == 1) return maxv;
-            si XX = X;
-            for(int c : X){
-                P.insert(c);
-                XX.erase(c);
-                if(fd(D, P, XX) == 0) minv = min(minv, c);
-                P.erase(c);
-                XX.insert(c);
+        int f(vi A, int p){
+            vi M;
+            for(int i = p; i < A.size(); i+=2)
+                M.push_back(A[i]);
+            sort(M.begin(), M.end());
+            for(int a : M)
+                for(int b : M)
+                    for(int c : M)
+                        if(a != b && b != c && c != a && a+b+c == 15) return 1;
+            int q = (p == 0 ? 1 : 0);
+            if(A.size() == 9) return q;
+
+            vi X, XX;
+            cmpl(A, X);
+            XX = A;
+            for(int r : X){
+                XX.push_back(r);
+                if(f(XX, q)) return 0;
+                XX.pop_back();
             }
-            if(minv != maxv) return minv;
-            return maxv;
-        }
-        //D plays maxv means D wins and 0 means D lose
-        int fd(si D, si P, si X){
-//            if(X.size() == 1) return maxv;
-            for(int c : X)
-                for(int a : D)
-                    for(int b : D)
-                        if(a != b && a+b+c == 15) return maxv;
-            si XX = X;
-            for(int c : X){
-                D.insert(c);
-                XX.erase(c);
-                if(fp(D, P, XX) == maxv) return maxv;
-                D.erase(c);
-                XX.insert(c);
-            }
-            return 0;
+
+            return 1;
         }
 
         string outcome(vector <int> moves)
         {
-            si D, P;
-            vi v = {1,2,3,4,5,6,7,8,9};
-            si X(v.begin(), v.end());
-            for(int i = 0; i < moves.size(); i++){
-                int k = moves[i];
-                X.erase(k);
-                if(i%2) P.insert(k);
-                else D.insert(k);
+            vi X;
+            cmpl(moves, X);
+            vi XX = moves;
+            for(int r : X){
+                XX.push_back(r);
+                if(f(XX, 1)) return "WIN "+to_string(r);
+                XX.pop_back();
             }
-            int r = fp(D, P, X);
-            if(r == maxv) return "LOSE";
-            return "WIN "+to_string(r);
+            return "LOSE";
         }
 
 // BEGIN CUT HERE
