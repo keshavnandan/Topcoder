@@ -1,0 +1,123 @@
+PROBLEM STATEMENT
+You are a magician who has two different shows. You are planning a tour of a series of cities. Given the population of each city and the roads between cities, you must plan the tour such that no two cities directly connected by a road are assigned the same show and such that the difference between the number of people who see show 1 and those who see show 2 is minimized. You have to return the difference between the number of people who will see show 1 and those who will see show 2.  The roads between the cities are specified in the vector <string> roads. roads[i][j] is '1' if there is a road between the ith and jth cities and is '0' if there is no road. You are guaranteed that you can pull this off. (You can schedule the shows such that no two adjacent cities are assigned the same show.) Keep in mind that each city must be assigned one of the two shows. The population of each city is specified by the vector <int> populations whose ith element is the population of the ith city.
+
+DEFINITION
+Class:MagicianTour
+Method:bestDifference
+Parameters:vector <string>, vector <int>
+Returns:int
+Method signature:int bestDifference(vector <string> roads, vector <int> populations)
+
+
+NOTES
+-You, the magician, can travel between two cities regardless of whether or not they are connected by a road.
+
+
+CONSTRAINTS
+-populations contains between 1 and 50 elements, inclusive.
+-roads contains exactly n elements, each of which has exactly n characters, where n is the number of elements in populations.
+-Each element of populations will be between 0 and 20, inclusive.
+-Each element of roads will only contain the characters '0' and '1'.
+-You are guaranteed that you can schedule the shows such that no two adjacent cities are assigned the same show.
+-No city will have a road to itself.
+-The graph is undirected. Hence, if there is a road from city a to city b then there has to be a road from city b to city a. As a result, roads[i][j] and roads[j][i] must be the same.
+
+
+EXAMPLES
+
+0)
+{"01","10"}
+{15,20}
+
+Returns: 5
+
+There are two cities of populations 15 and 20. Perform show 1 in the first and show 2 in the second or vice versa.
+
+1)
+{"0100",
+ "1000",
+ "0001",
+ "0010"}
+{2,4,2,4}
+
+Returns: 0
+
+There are four cities of populations 2, 4, 2 and 4. Perform show 1 in the first and fourth cities and perform show 2 in the second and third cities.
+
+2)
+{"0010",
+ "0001",
+ "1000",
+ "0100"}
+{2,2,2,2}
+
+Returns: 0
+
+3)
+{"000",
+ "000",
+ "000"}
+{6,7,15}
+
+Returns: 2
+
+There are no roads! To keep it balanced, perform show 1 in the first and second cities and show 2 in the third city.
+
+4)
+{"0000",
+ "0010",
+ "0101",
+ "0010"}
+{8,10,15,10}
+
+Returns: 3
+
+5)
+{"010",
+ "101",
+ "010"}
+{5,1,5}
+
+Returns: 9
+
+6)
+{
+"01000000000000000000000000000000000",
+"10100000000000000000000000000000000",
+"01010000000000000000000000000000000",
+"00101000000000000000000000000000000",
+"00010100000000000000000000000000000",
+"00001010000000000000000000000000000",
+"00000101000000000000000000000000000",
+"00000010100000000000000000000000000",
+"00000001010000000000000000000000000",
+"00000000101000000000000000000000000",
+"00000000010100000000000000000000000",
+"00000000001010000000000000000000000",
+"00000000000101000000000000000000000",
+"00000000000010100000000000000000000",
+"00000000000001010000000000000000000",
+"00000000000000101000000000000000000",
+"00000000000000010100000000000000000",
+"00000000000000001010000000000000000",
+"00000000000000000100000000000000000",
+"00000000000000000000000000000000000",
+"00000000000000000000010000000000000",
+"00000000000000000000101000000000000",
+"00000000000000000000010100000000000",
+"00000000000000000000001010000000000",
+"00000000000000000000000101000000000",
+"00000000000000000000000010100000000",
+"00000000000000000000000001010000000",
+"00000000000000000000000000101000000",
+"00000000000000000000000000010100000",
+"00000000000000000000000000001010000",
+"00000000000000000000000000000101000",
+"00000000000000000000000000000010100",
+"00000000000000000000000000000001010",
+"00000000000000000000000000000000101",
+"00000000000000000000000000000000010"
+}
+{8,15,12,9,12,6,4,6,16,1,15,3,18,15,14,8,6,6,12,13,14,15,17,15,3,8,7,8,3,19,12,9,14,19,9}
+
+Returns: 21
