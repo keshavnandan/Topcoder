@@ -1,0 +1,61 @@
+PROBLEM STATEMENT
+You are writing part of a spam detection system. Your job is to analyze the subject lines of e-mail messages and return a count of known spam signalling keywords in the subject lines. Your task is made more difficult by the spammers who try to hide the keywords in several ways. Here we will consider just one obfuscation technique: duplicating characters. Duplicating characters means taking an existing character in a word and inserting more copies of that character into the same place in the word. This process can then be repeated on a different character in the word. The spam signalling keyword "credit" might be modified to "creddiT", "CredittT" or "ccrreeeddiitt", etc., but not "credict".
+
+ For the purposes of this problem we will consider subject lines which contain only letters and spaces. The "words" in the subject line are delimited by spaces. A word in the subject line is considered a "match" if the entire word is the same as at least one entire keyword, after possibly removing some duplicated characters from the subject word. A keyword that matches only part of a subject word or a subject word that matches only part of a keyword does not count. Note that if a keyword contains a double letter, the subject word must also contain (at least) a double letter in the same position to match ("double letter" means two consecutive letters in the word that are the same). For this application, all matches (and the use of the term "same") are case insensitive.
+
+Given a subject line and a list of keywords, return the count of words in the subject line which "match" words in the keyword list. If multiple words in the subject line match the same keyword, they are each counted, but a word in the subject line that matches multiple keywords is only counted once.
+
+
+
+DEFINITION
+Class:SpamDetector
+Method:countKeywords
+Parameters:string, vector <string>
+Returns:int
+Method signature:int countKeywords(string subjectLine, vector <string> keywords)
+
+
+CONSTRAINTS
+-subjectLine will contain between 0 and 50 characters, inclusive.
+-subjectLine will include only letter ('a' to 'z' and 'A' to 'Z') and space (' ') characters.
+-keywords will have between 0 and 50 elements, inclusive.
+-each element of keywords will contain between 1 and 50 characters, inclusive.
+-each element of keywords will consist of only letters ('a' to 'z' and 'A' to 'Z').
+-The same letter (ignoring case) never appears more than twice consecutively in any element of keywords.  (ie. "aabbAAbb" is ok, but "aaAbb" is not allowed.)
+
+
+EXAMPLES
+
+0)
+"LoooW INTEREST RATES available dont BE slow"
+{"interest","rates","loan","available","LOW"}
+
+Returns: 4
+
+"INTEREST" , "RATES" , "available", and "LoooW" match. Note that "slow" does not match, even though it contains the substring "low" which is a keyword.
+
+1)
+"Dear Richard Get Rich Quick            no risk"
+{"rich","risk","Quicken","wealth","SAVE"}
+
+Returns: 2
+
+Don't match "Richard"
+
+2)
+"in debbtt againn and aAgain and AGAaiIN"
+{"AGAIN","again","Again","again"}
+
+Returns: 3
+
+3)
+"PlAyy ThEE Lottto     get Loottoo feever"
+{"play","lotto","lottery","looser"}
+
+Returns: 3
+
+4)
+"                                   "
+{"empty","space","does","not","match"}
+
+Returns: 0
