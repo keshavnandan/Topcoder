@@ -6,53 +6,49 @@
 #include <map>
 #include <queue>
 using namespace std;
-int rec[400][600];
-int mem[400][600];
-int res[200*600+5];
+int c = 0;
+int visited[405][605];
+int X[4] = {1,-1,0,0};
+int Y[4] = {0,0,1,-1};
 
 class grafixMask
         {
         public:
-        void ffill(int x, int y, int k){
-            queue<pair<int, int> > q;
-            q.push(make_pair(x, y));
-            while(!q.empty()){
-                pair<int, int> p = q.front();
-                q.pop();
-                int i = p.first, j = p.second;
-                if(0 <= i && i < 400 && 0 <= j && j < 600 && rec[i][j] == 0){
-                    rec[i][j] = k;
-                    q.push(make_pair(i+1, j));
-                    q.push(make_pair(i-1, j));
-                    q.push(make_pair(i, j+1));
-                    q.push(make_pair(i, j-1));
-                }
+        void dfs(int x, int y){
+            visited[x][y] = 1;
+            c++;
+            for(int i = 0; i < 4; i++){
+                int xx = x+X[i];
+                int yy = y+Y[i];
+                if(0 <= xx && xx < 400 && 0 <= yy && yy < 600 && !visited[xx][yy])
+                    dfs(xx, yy);
             }
         }
-        vector <int> sortedAreas(vector <string> rectangles)
-            {
-                for(int i = 0; i < rectangles.size(); i++){
-                    stringstream ss(rectangles[i]);
-                    int x1, y1, x2, y2;
-                    ss>>x1>>y1>>x2>>y2;
-                    for(int x = x1; x <= x2; x++)
-                        for(int y = y1; y <= y2; y++)
-                            rec[x][y] = -1;
-                }
-                int k = 1;
-                for(int i = 0; i < 400; i++)
-                    for(int j = 0; j < 600; j++)
-                        if(rec[i][j] == 0) ffill(i, j, k++);
 
-                vector<int> sol;
-                for(int i = 0; i < 400; i++)
-                    for(int j = 0; j < 600; j++)
-                        if(rec[i][j] > 0) res[rec[i][j]]++;
-                for(int i = 1; res[i]; i++)
-                    sol.push_back(res[i]);
-                sort(sol.begin(), sol.end());
-                return sol;
+        vector <int> sortedAreas(vector <string> rec){
+
+            for(int i = 0; i < 400; i++)
+                for(int j = 0; j < 600; j++)
+                    visited[i][j] = 0;
+            for(string s : rec){
+                int r1, r2, c1, c2;
+                sscanf(s.c_str(), "%d%d%d%d", &r1, &c1, &r2, &c2);
+                for(int i = r1; i <= r2; i++)
+                    for(int j = c1; j <= c2; j++)
+                        visited[i][j] = 1;
             }
+            vector<int> rc;
+            for(int i = 0; i < 400; i++)
+                for(int j = 0; j < 600; j++){
+                    if(!visited[i][j]){
+                        c = 0;
+                        dfs(i, j);
+                        rc.push_back(c);
+                    }
+                }
+            sort(rc.begin(), rc.end());
+            return rc;
+        }
 
 // BEGIN CUT HERE
 	public:
