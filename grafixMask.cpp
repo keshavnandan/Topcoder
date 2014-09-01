@@ -6,6 +6,7 @@
 #include <map>
 #include <queue>
 using namespace std;
+typedef pair<int, int> pi;
 int c = 0;
 int visited[405][605];
 int X[4] = {1,-1,0,0};
@@ -14,17 +15,6 @@ int Y[4] = {0,0,1,-1};
 class grafixMask
         {
         public:
-        void dfs(int x, int y){
-            visited[x][y] = 1;
-            c++;
-            for(int i = 0; i < 4; i++){
-                int xx = x+X[i];
-                int yy = y+Y[i];
-                if(0 <= xx && xx < 400 && 0 <= yy && yy < 600 && !visited[xx][yy])
-                    dfs(xx, yy);
-            }
-        }
-
         vector <int> sortedAreas(vector <string> rec){
 
             for(int i = 0; i < 400; i++)
@@ -41,11 +31,28 @@ class grafixMask
             for(int i = 0; i < 400; i++)
                 for(int j = 0; j < 600; j++){
                     if(!visited[i][j]){
-                        c = 0;
-                        dfs(i, j);
+                        c = 1;
+                        queue<pi> Q;
+                        Q.push(make_pair(i, j));
+                        while(!Q.empty()){
+                            pi p = Q.front();
+                            Q.pop();
+                            int x = p.first, y = p.second;
+                            visited[x][y] = 1;
+                            for(int i = 0; i < 4; i++){
+                                int xx = x+X[i];
+                                int yy = y+Y[i];
+                                if(0 <= xx && xx < 400 && 0 <= yy && yy < 600 && !visited[xx][yy]){
+                                    Q.push(make_pair(xx, yy));
+                                    visited[xx][yy] = 1;
+                                    c++;
+                                }
+                            }
+                        }
                         rc.push_back(c);
                     }
                 }
+
             sort(rc.begin(), rc.end());
             return rc;
         }
