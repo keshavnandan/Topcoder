@@ -14,45 +14,44 @@ typedef vector<vi> vvi;
 typedef vector<string> vs;
 typedef vector<vs> vvs;
 int M[55][55];
-int v[55];
+int c[55];
 int n;
 
 class Circuits {
         public:
-        int dfs(int s, int c = 0){
-            v[s] = 1;
+        int dfs(int s){
+            if(c[s] >= 0) return c[s];
             int rc = 0;
             for(int i = 0; i < n; i++){
-                if((v[i] == 0 || v[i] == 2) && M[s][i]){
-                    v[i] = 1;
+                if(M[s][i]){
                     rc = max(rc, dfs(i)+M[s][i]);
                 }
             }
-            v[s] = 2;
-            return rc+c;
+            c[s] = rc;
+            return rc;
         }
 
         int howLong(vector <string> connects, vector <string> costs)
         {
             n = costs.size();
-            for(int i = 0; i < n; i++)
-                for(int j = 0; j < n; j++)
+            for(int i = 0; i < 55; i++)
+                for(int j = 0; j < 55; j++)
                     M[i][j] = 0;
-
+            fill(c, c+55, -1);
             for(int i = 0; i < n; i++){
                 string s = connects[i], t = costs[i];
-                int j, c;
+                int j, cc;
                 stringstream ss(s), st(t);
+                if(s.empty()) c[i] = 0;
                 while(ss>>j){
-                    st>>c;
-                    M[i][j] = c;
+                    st>>cc;
+                    M[i][j] = cc;
                 }
             }
-            fill(v, v+55, 0);
-            int c = 0;
+            int rc = 0;
             for(int i = 0; i < n; i++)
-                if(v[i] == 0) c = max(c, dfs(i));
-            return c;
+                rc = max(rc, dfs(i));
+            return rc;
         }
 
 // BEGIN CUT HERE
