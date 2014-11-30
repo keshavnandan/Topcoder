@@ -15,61 +15,47 @@ typedef vector<vi> vvi;
 typedef vector<string> vs;
 typedef vector<vs> vvs;
 #define inf 1000000000
-int D[20];
-int M[20][20];
-int n;
-
-struct node{
-    
-    int state;
-    int cost;
-    node(int s, int c) : state(s), cost(c) {}
-};
-
-bool operator<(node a, node b){
-    return a.cost > b.cost;
-}
 
 class KiloManX {
-        public:
+    public:
+    vs d;
+    vi h;
+    int n;
+    map<int, int> best;
 
-        int leastShots(vs damageChart, vi bossHealth)
-        {
-            map<int, int> H;
-            n = bossHealth.size();
-            for(int i = 0; i <= n; i++)
-                for(int j = 0; j <= n; j++)
-                    M[i][j] = inf;
-            for(int i = 1; i <= n; i++) M[0][i] = bossHealth[i-1];
-            for(int i = 1; i <= n; i++)
-                for(int j = 1; j <= n; j++){
-                    int k = damageChart[i-1][j-1] - '0';
-                    if(k) M[i][j] = (bossHealth[j-1] + k - 1)/k;
-              }
-            priority_queue<node> Q;
-            for(int i = 1; i <= n; i++){
-                H[(1<<i)+1] = M[0][i];
-                Q.push(node((1<<i)+1, M[0][i]));
+    int dp(int s){
+        //If state s is already cached return it
+        if(best.count(s)) return best[s];
+        //Final state makes zero contribution
+        if( s == ((1<<n) - 1) ) return 0;
+        //minj is minimum shots to transition to some state j
+        int minj = inf;
+        for(int j = 0; j < n; j++){
+            //If j is not shot
+            if( !(s & (1<<j) ) ){
+                //mini is minimum shots required to shoot j from some weapon i
+                int mini = h[j];
+                for(int i = 0; i < n; i++){
+                    int k = d[i][j] - '0';
+                    //if i can shoot j
+                    if(i == j || !(s & (1<<i) ) || k == 0) continue;
+                    mini = min(mini, (h[j]+k-1)/k );
+                }
+                minj = min(minj, mini + dp( s|(1<<j) ) );
             }
-            while(!Q.empty()){
-                node p = Q.top();
-                Q.pop();
-                int s = p.state, c = p.cost, m = inf;
-                if(s == (1<<(n+1))-1) return c;
-                for(int i = 0; i <= n; i++)
-                    for(int j = 1; j <= n; j++)
-                        if(s&(1<<i) && !(s&(1<<j)) && M[i][j] < inf){
-
-                            m = M[i][j];
-                            int t = (s|(1<<j));
-                            if(H.count(t) == 0 || H[t] > c+m){
-                                H[t] = c+m;
-                                //cout<<"node <"<<i<<","<<j<<"> with value "<<m<<" pushed into queue at value "<<c<<endl;
-                                Q.push(node(t, c+m));
-                            }
-                        }
-            }            
         }
+        best[s] = minj;
+        return minj;
+    }
+
+    int leastShots(vs damageChart, vi bossHealth)
+    {
+        n = bossHealth.size();
+        d = damageChart;
+        h = bossHealth;
+        best.clear();
+        return dp(0);
+    }  
 
 // BEGIN CUT HERE
     public:
