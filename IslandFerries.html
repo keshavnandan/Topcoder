@@ -1,0 +1,64 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+You are a traveler in a chain of tropical islands in the South Pacific.  Transportation between these islands is provided by competing ferry services.  One-way tickets for the ferries can be purchased on each of the islands.  The tickets are only accepted by the ferry service for which the ticket was purchased.  Each ticket entitles you to ride any single leg offered by that ferry service, where a leg is a trip between any two islands.
+</p>
+<p>
+Ticket prices vary from island to island, and are published daily in the local newspaper.  Armed with the current prices, you wish to decide which island to visit next.  Your task is to determine for each island the cheapest path to journey from your current location to that island.  You are not concerned with the number of ferries you must ride, only with the cost of the tickets required to make each journey.
+</p>
+<p>
+Anti-competitive regulations prohibit you from carrying more than one ticket for the same ferry service, and from carrying more than three tickets total.  Thus, after stepping off a ferry onto an island, you will have zero, one, or two tickets in your possession, and any tickets you are carrying will not be for the ferry you just rode.  You begin with no tickets in your possession, so the first step of any journey must be to purchase one, two, or three tickets on the initial island (island 0).
+</p>
+<p>
+The available legs will be given as a vector &lt;string&gt; <b>legs</b>, with each element giving the legs offered by a particular ferry service.  The size of <b>legs</b> gives you the number of ferry services.  Each element of <b>legs</b> will be formatted as a list of &quot;&lt;island1&gt;-&lt;island2&gt;&quot; (representing a one-way leg from &lt;island1&gt; to &lt;island2&gt;), each separated by a single space.
+</p>
+<p>
+The prices of ferry tickets sold on each island is given as a vector &lt;string&gt; <b>prices</b>, with each element giving the prices for tickets on a particular island.  The size of <b>prices</b> gives you the number of islands.  Each element of <b>prices</b> will be a space-separated list of integers, corresponding to the ticket prices for ferries in the same order they are given in <b>legs</b>.
+</p>
+<p>
+There will be up to 40 islands and 10 ferry services.  Given the list of legs offered by each ferry service and the prices of tickets on each island, for each island compute the cost of traveling there from your initial island (island 0), and return the costs as a vector &lt;int&gt;.  The size of your returned vector &lt;int&gt; should be one less than the number of islands.  If a given island is unreachable, return -1 for the cost to that island.
+</p>
+
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>IslandFerries</td></tr><tr><td>Method:</td><td>costs</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;, vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; costs(vector &lt;string&gt; legs, vector &lt;string&gt; prices)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>64</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>There is not necessarily a route to all islands.</td></tr><tr><td align="center" valign="top">-</td><td>The cheapest route may including visiting an island more than once (see example 2 below).</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>legs</b> will contain between 1 and 10 elements, inclusive.  The size of <b>legs</b> gives you F, the number of ferry services.</td></tr><tr><td align="center" valign="top">-</td><td><b>prices</b> will contain between 2 and 40 elements, inclusive.  The size of <b>prices</b> gives you I, the number of islands.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>legs</b> will contain between 1 and 50 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>prices</b> will contain between 1 and 50 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each &lt;island&gt; in <b>legs</b> will be an integer between 0 and I-1, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>prices</b> will contain F integers between 1 and 1000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>There will be no duplicates within a given element of <b>legs</b>.</td></tr><tr><td align="center" valign="top">-</td><td>The <i>j</i>th element in the list of <b>prices[i]</b> gives the price of a ticket for ferry service <i>j</i> sold on island <i>i</i>.</td></tr><tr><td align="center" valign="top">-</td><td>No integers will have leading zeros.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ &quot;0-1 0-3&quot;, &quot;0-2&quot; }</pre></td></tr><tr><td><pre>{ &quot;5 7&quot;, &quot;1000 1000&quot;, &quot;1000 1000&quot;, &quot;1000 1000&quot; }</pre></td></tr></table></td></tr><tr><td><pre>Returns: { 5,  7,  5 }</pre></td></tr><tr><td><table><tr><td colspan="2">You need an A ticket (cost of 5) to get to islands 1 and 3, and a B ticket (cost of 7) to get to island 2.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ &quot;0-1 1-2 2-3&quot;, &quot;0-1 2-3&quot; }</pre></td></tr><tr><td><pre>{ &quot;1 10&quot;, &quot;20 25&quot;, &quot;50 50&quot;, &quot;1000 1000&quot;, &quot;1000 1000&quot; }</pre></td></tr></table></td></tr><tr><td><pre>Returns: { 1,  11,  31,  -1 }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+There are 5 islands and 2 ferry services.  Referring to the ferry services as A and B, the cheapest way to get to island 1 is to purchase an A ticket on island 0 for a cost of 1 and take the A ferry to island 1.
+</p>
+<p>
+The cheapest way to get to island 2 is to purchase A and B tickets on island 0 for a total cost of 11.  Use the B ticket to get to island 1 and the A ticket to get to island 2.
+</p>
+<p>
+The cheapest way to get to island 3 is to purchase A and B tickets on island 0 (cost of 11), use the A ticket to get to island 1, purchase another A ticket on island 1 (cost of 20), use it to get to island 2, and then use the B ticket to get to island 3.  The total cost is 31.
+</p>
+<p>
+There is no path to island 4.
+</p></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ &quot;0-1&quot;, &quot;1-0&quot;, &quot;0-2&quot;, &quot;2-3&quot; }</pre></td></tr><tr><td><pre>{ &quot;1 1 1000 1000&quot;, &quot;1000 1000 10 100&quot;, &quot;1000 1000 1000 1000&quot;, &quot;1000 1000 1000 1000&quot; }</pre></td></tr></table></td></tr><tr><td><pre>Returns: { 1,  12,  112 }</pre></td></tr><tr><td><table><tr><td colspan="2">The cheapest way to get to island 3 is to purchase A and B tickets on island 0, take the A ferry to island 1, purchase C and D tickets on island 1, take the B ferry <i>back</i> to island 0, then the C ferry to island 2, and then the D ferry to island 3.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ &quot;1-0&quot; }
+</pre></td></tr><tr><td><pre>{ &quot;793&quot;, &quot;350&quot; }
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: { -1 }</pre></td></tr><tr><td><table><tr><td colspan="2">Legs are directed.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;8-18 4-11 15-5 7-12 11-8 0-15 15-2 3-11 4-18 2-3&quot;,
+ &quot;16-2 18-3 15-18 11-19 18-2 18-7 19-17 3-15 12-19&quot;,
+ &quot;2-17 0-12 1-2 14-12 6-2 4-2 11-5 4-11 11-6 17-16&quot;,
+ &quot;0-18 13-18 16-0 3-7 14-12 3-1 19-18 3-19 10-3 8-15&quot;,
+ &quot;18-19 3-16 13-6 0-19 12-14 5-17 1-12 7-13 9-14 1-2&quot;,
+ &quot;14-5 17-9 2-10 16-13 11-15 10-17 14-10 0-14 2-13&quot;,
+ &quot;4-5 0-17 6-9 17-7 12-6 5-6 6-18 10-18 0-2 13-0 8-4&quot;,
+ &quot;3-12 4-11 10-17 13-12 3-0 3-7 13-0 9-15 10-9 0-10&quot; }
+</pre></td></tr><tr><td><pre>{&quot;592 219 88 529 324 86 503 610&quot;,
+ &quot;2 94 8 600 34 95 6 494&quot;,
+ &quot;638 301 10 246 290 97 85 74&quot;,
+ &quot;118 8 939 393 450 79 317 99&quot;,
+ &quot;99 806 698 740 2 26 525 818&quot;,
+ &quot;95 9 615 972 23 23 5 666&quot;,
+ &quot;6 448 440 710 83 4 419 496&quot;,
+ &quot;4 47 182 4 185 70 718 770&quot;,
+ &quot;3 321 6 855 968 65 10 6&quot;,
+ &quot;173 224 300 3 79 2 707 49&quot;,
+ &quot;21 10 7 10 4 9 5 8&quot;,
+ &quot;6 600 4 724 7 1 960 247&quot;,
+ &quot;83 16 901 50 437 780 658 2&quot;,
+ &quot;763 923 125 576 45 423 3 1&quot;,
+ &quot;7 324 391 898 8 59 281 973&quot;,
+ &quot;9 44 49 364 78 744 43 5&quot;,
+ &quot;10 62 75 418 216 90 32 919&quot;,
+ &quot;764 534 778 605 80 647 821 74&quot;,
+ &quot;65 449 102 867 421 94 6 7&quot;,
+ &quot;67 155 362 789 189 316 107 595&quot; }
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+{ 170,  160,  155,  173,  145,  150,  158,  168,  153,  145,  162,  88,
+  162,  86,  163,  159,  153,  150,  104 }</pre></td></tr><tr><td></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
