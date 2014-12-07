@@ -18,24 +18,16 @@ struct  state
 {
     int pos;
     int cost;
-    vi tickets;
-    state(int p = 0, int c = 0, vi t = vector<int>(10, 0)){
-        pos = p;
-        cost = c;
-        tickets = t;
-    }
+    int tickets;
+    int nt;
+    state(int p, int c, int t, int n) : pos(p), cost(c), tickets(t), nt(n) {}
 };
 bool operator<(state a, state b){
     return a.cost > b.cost;
 }
 int num = 0;
 class IslandFerries{ 
-        int dfs(int s, vvi &M, vi &vis){
-            num++;
-            vis[s] = true;
-            for(int j = 0; j < 50; j++)
-                if(!vis[j] && M[s][j] > 0) dfs(j, M, vis);
-        }
+
         public: 
         vector <int> costs(vector <string> legs, vector <string> prices) {
             num = 0;
@@ -57,54 +49,38 @@ class IslandFerries{
             }   
 
             vi vis(50, 0);
-            dfs(0, M, vis);
-            cout<<"num = "<<num<<endl;
+            //cout<<"num = "<<num<<endl;
             priority_queue<state> Q;
-            state s;
-            Q.push(s);
+            Q.push(state(0, 0, 0, 0));
             vi done(50, -1);
-            int count = 0;
-            set<pair<int, vi> > visited;
+            map<pi, int> best;
 
             while(!Q.empty()){
                 state p = Q.top();
                 Q.pop();
-                int pos = p.pos, cost = p.cost;
-                vi tickets = p.tickets;
+                int pos = p.pos, cost = p.cost, tickets = p.tickets, nt = p.nt;
+                //cout<<pos<<" "<<cost<<" "<<tickets<<" "<<tickets<<endl;
+                pi t = make_pair(pos, tickets);
 
-                if(visited.find(make_pair(pos, tickets)) != visited.end()) continue;
-                visited.insert(make_pair(pos, tickets));
+                if(best.count(t) != 0 && best[t] <= cost) continue;
+                best[t] = cost;
 
-                if(done[pos] == -1){
-                    done[pos] = cost;
-                    count++;
-                    if(count == num) break;
-                }
-                int nt = 0;
-                for(int t : tickets) if(t > 0) nt++;
+                if(done[pos] == -1) done[pos] = cost;
                 //buy more tickets if it is possible
-                if(nt < 3){
+                if(nt < 3)
                     for(int i = 0; i < m; i++)
-                        if(tickets[i] == 0){
-                            tickets[i] = P[pos][i];
-                            Q.push(state(pos, cost+P[pos][i], tickets));
-                            tickets[i] = 0;
-                        }
-                }
+                        if(!(tickets & (1<<i)))
+                            Q.push(state(pos, cost+P[pos][i], tickets|(1<<i), nt+1));
 
                 //Go to some other island utilising any one of the tickets in kitty
                 for(int i = 0; i < m; i++)
-                    if(tickets[i] > 0){
+                    if(tickets & (1<<i)){
                         //visit all islands to check if ferry i can help to go from pos to j
                         for(int j = 0; j < n; j++)
-                            if(M[pos][j] & (1<<i)){
-                                int t = tickets[i];
-                                tickets[i] = 0;
-                                Q.push(state(j, cost, tickets));
-                                tickets[i] = t;
-                            }
+                            if(M[pos][j] & (1<<i))
+                                Q.push(state(j, cost, tickets^(1<<i), nt-1));
                     }
-            }   
+            }
             return vi(done.begin()+1, done.begin()+n);
         }
         
