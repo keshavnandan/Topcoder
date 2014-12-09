@@ -1,0 +1,108 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Bomb Man is trapped inside a maze shaped like a grid.
+You must help him find the exit as fast as possible.
+The maze will be given as a vector &lt;string&gt; where each element
+corresponds to a row in the grid and each character in an element
+corresponds to a cell in that row. '#' marks a wall,
+'.' an empty cell, 'B' the start position of Bomb Man
+and 'E' the exit. Below is an example of a maze in this format,
+given as a vector &lt;string&gt;:
+</p>
+
+<pre>
+{&quot;.....B.&quot;,
+ &quot;.#####.&quot;,
+ &quot;.#...#.&quot;,
+ &quot;.#E#.#.&quot;,
+ &quot;.###.#.&quot;,
+ &quot;.......&quot;}
+</pre>
+
+<p>
+In each time unit, Bomb Man can move one cell up, down, left or right.
+Thus, in the maze above, he can reach the exit in 14 time units by just walking.
+</p>
+
+<p>
+To be able to reach the exit quicker, Bomb Man is in possession
+of a number of bombs, each of which can blow a hole in a wall and thus open
+up new passages. Instead of moving in any of the four cardinal directions,
+Bomb Man can (if he has bombs left) blow a hole in a wall located in any of
+the four neighboring squares. The bomb will go off in the time unit after he has placed the bomb, creating
+an empty cell that Bomb Man can enter in the time unit after that. That is,
+if he places a bomb in time unit <i>t</i>, he can enter the cell earliest in time unit <i>t+2</i>.
+In the maze above, Bomb Man can then reach the exit in 8 time units by first walking
+left, placing a bomb, waiting for the bomb to explode, and then walking down, down,
+left, left and down.
+</p>
+
+<p>
+Create a class BombMan containing the method shortestPath which
+takes a vector &lt;string&gt; <b>maze</b>, containing the maze in the
+format described above, and an int <b>bombs</b>, the number
+of bombs in Bomb Man's possession. The method should return an int, the
+least number of time units required for Bomb Man to reach the exit.
+If it's not possible for Bomb Man to reach the exit, return -1 (see example 1).
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>BombMan</td></tr><tr><td>Method:</td><td>shortestPath</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int shortestPath(vector &lt;string&gt; maze, int bombs)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>64</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>maze</b> will contain between 1 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element in <b>maze</b> will contain between 1 and 50 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element in <b>maze</b> will contain the same number of characters.</td></tr><tr><td align="center" valign="top">-</td><td><b>maze</b> will only contain the characters '#', '.', 'B' and 'E'.</td></tr><tr><td align="center" valign="top">-</td><td>Exactly one character in <b>maze</b> will be a 'B'.</td></tr><tr><td align="center" valign="top">-</td><td>Exactly one character in <b>maze</b> will be a 'E'.</td></tr><tr><td align="center" valign="top">-</td><td><b>bombs</b> will be between 0 and 100, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.....B.&quot;,
+ &quot;.#####.&quot;,
+ &quot;.#...#.&quot;,
+ &quot;.#E#.#.&quot;,
+ &quot;.###.#.&quot;,
+ &quot;.......&quot;}
+</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: 8</pre></td></tr><tr><td><table><tr><td colspan="2">This is the example mentioned in the problem statement.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;B.#.#.#...E&quot;}</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: -1</pre></td></tr><tr><td><table><tr><td colspan="2">Bomb Man can only blow through the first two walls, but not the third. Hence the method returns -1.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;..#####&quot;,
+ &quot;B.#####&quot;,
+ &quot;..#####&quot;,
+ &quot;#######&quot;,
+ &quot;####...&quot;,
+ &quot;####.E.&quot;}
+</pre></td></tr><tr><td><pre>4</pre></td></tr></table></td></tr><tr><td><pre>Returns: 17</pre></td></tr><tr><td><table><tr><td colspan="2">Here Bomb Man has just enough bombs to reach the exit. One way to do this is to walk
+down, right, down (bomb), down (bomb), right (bomb), right (bomb), right, right, down.
+This takes 1+1+3+3+3+3+1+1+1 = 17 time units.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.#.#.#.#B#...#.#...#.#...#.#...#.#...#.#.#.......&quot;,
+ &quot;.#.#.#.#.#.###.###.#.###.#.#.###.###.#.#.#.###.##&quot;,
+ &quot;.#.#.#...#.#.#.#.#.#...#.....#.#.#...#...#.#.#...&quot;,
+ &quot;.#.#.###.#.#.#.#.#.###.#.#####.#.###.###.#.#.###.&quot;,
+ &quot;.............#.#...#...#.....#.#.#...#.#.#.....#.&quot;,
+ &quot;##.#######.###.#.#####.#.#####.#.###.#.#.#.#.####&quot;,
+ &quot;.#.#.....#...#...#.#...#...#.#.#...#...#...#.....&quot;,
+ &quot;.#######.#.#####.#.#.#.#.###.#.###.#.#####.#.####&quot;,
+ &quot;.#.#.#.#...#.#.#.#.#.#.......#...#.#...#.#.#.....&quot;,
+ &quot;.#.#.#.###.#.#.#.#.#####.#####.###.###.#.#.######&quot;,
+ &quot;.....#...#.#...#...#...#...#...#...#.#.#.........&quot;,
+ &quot;####.###.#.###.###.#.###.#.#.###.###.#.#.########&quot;,
+ &quot;.......#.........#.#.#.#.#.#.#.#.........#...#...&quot;,
+ &quot;.#.###.#########.#.#.#.#.###.#.#####.#.#.#.###.##&quot;,
+ &quot;.#.#.........#.#.#.#.#.....#.#.#.....#.#.........&quot;,
+ &quot;############.#.#.#.#.#.#####.#.#.################&quot;,
+ &quot;.#...........#...#.#.#.#...#.#.#...#.#.#.....#...&quot;,
+ &quot;.#####.#####.###.#.#.#.#.###.#.#.###.#.#.#####.##&quot;,
+ &quot;.......#...#.#.#.....#...#...#.#.#.#.#...........&quot;,
+ &quot;##########.#.#.#####.#.###.###.#.#.#.#.##########&quot;,
+ &quot;.....#...#.....#.#...#.......#.#...#.......#.....&quot;,
+ &quot;##.#.###.#.###.#.#.#.#.#####.#.#.###.#######.####&quot;,
+ &quot;...#...#...#.......#.....#.#...#...#.......#.....&quot;,
+ &quot;####.#.#.#########.#.###.#.#####.###.#.#######.##&quot;,
+ &quot;.#...#...#.........#.#.....#.........#.#.#.#.....&quot;,
+ &quot;.#####.#.#.###.#######.#.###.#.#########.#.#.####&quot;,
+ &quot;.......#.#.#...#.......#.....#.#.#.......#.#.#.#.&quot;,
+ &quot;########.#.#.#.#####.#.###.#.###.#.#######.#.#.#.&quot;,
+ &quot;.........#.#.#.#.....#...#.#.........#.#.........&quot;,
+ &quot;################.#.#.#.#.#.#.#.#######.#.########&quot;,
+ &quot;.................#.#.#.#.#.#.#...........#.......&quot;,
+ &quot;########.#####.#.###.#.#.#####.###.#.#####.###.##&quot;,
+ &quot;.........#...#.#...#.#.#...#.....#.#.........#...&quot;,
+ &quot;.#####.#####.#.###.#.###.#.#.#.#.#.#####.#.###.#.&quot;,
+ &quot;.#.....#.........#.#.#...#.#.#.#.#.#.....#...#.#.&quot;,
+ &quot;####.#####.###.#.#.#.#.#.#.###.###.#.#.#.#.#####.&quot;,
+ &quot;.....#.....#.#.#.#.#.#.#.#.#...#...#.#.#.#...#...&quot;,
+ &quot;####.#.#.###.#.#.###.#.###.#.#.#####.#.#.#.######&quot;,
+ &quot;.....#.#.#.#...#...#.#...#.#.#...#...#.#.#.......&quot;,
+ &quot;##########.#.#.#.#####.###.#.#.###.#.###.#####.##&quot;,
+ &quot;...#.#...#...#.#.....#.#...#.#...#.#.#.......#...&quot;,
+ &quot;.#.#.#.#.#.#.#.#.#.#.###.#.#########.###.#.#.#.#.&quot;,
+ &quot;.#.#...#...#.#.#.#.#...#.#...#.......#...#.#.#.#.&quot;,
+ &quot;##.###.#.#.###.#.#.#.#.#####.#.#.#.###.#.########&quot;,
+ &quot;.......#.#...#.#.#.#.#.#.....#.#.#...#.#.........&quot;,
+ &quot;####.#######.#.#####.#.###.#.#.###.#.#.#.########&quot;,
+ &quot;E..#.......#.#.....#.#.#.#.#.#.#...#.#.#.........&quot;,
+ &quot;##.#.#.#.###.###.###.###.#.#.###.#.#.#.#.#######.&quot;,
+ &quot;.....#.#...#.#.....#.#.....#...#.#.#.#.#.....#...&quot;}</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: 76</pre></td></tr><tr><td></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
