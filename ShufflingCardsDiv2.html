@@ -1,0 +1,40 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td>Fox Ciel likes shuffling cards.
+She uses a deck with 2N cards, numbered 1 through 2N.
+<br></br>
+Ciel always uses the same procedure when shuffling.
+One round of shuffling looks as follows:
+<ol>
+<li>She splits the deck into two piles: the top N cards will be pile A, the bottom N cards pile B.</li>
+<li>She takes pile A and rearranges the cards it contains arbitrarily.</li>
+<li>She takes pile B and rearranges the cards it contains arbitrarily.</li>
+<li>She interleaves the cards from the two piles, producing a single deck again. More precisely, if pile A has cards A1,A2,...,AN and pile B has cards B1,B2,...,BN then the new deck will be A1,B1,A2,B2,...,AN,BN. (Note that the first card has to come from pile A.)</li>
+</ol>
+
+For example, let N=2 and suppose that Ciel starts with the sorted deck 1,2,3,4.
+One possible round of shuffling looks as follows:
+<ol>
+<li>She splits the deck into two piles: the cards 1,2 are pile A and the cards 3,4 are pile B.</li>
+<li>She rearranges pile A into 1,2. (I.e., she keeps the cards in their current order.)</li>
+<li>She rearranges pile B into 4,3.</li>
+<li>She merges the two piles, obtaining the deck 1,4,2,3.</li>
+</ol>
+
+In the above example we have shown one of four possible outcomes of the shuffling process.
+After the first round of shuffling, Ciel could have that deck in one of these four orders:
+<ul>
+<li>1,3,2,4</li>
+<li>1,4,2,3</li>
+<li>2,3,1,4</li>
+<li>2,4,1,3</li>
+</ul>
+
+You are given a vector &lt;int&gt; <b>permutation</b> which contains a permutation of the 2N cards.
+Ciel's deck is currently sorted: the cards are in the order 1,2,3,...,2N from top to bottom.
+Ciel wants to make exactly two rounds of shuffling.
+After the second round the order of cards in her deck should correspond to the given permutation.
+Return "Possible" (quotes for clarity) if this can be done and "Impossible" otherwise.</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>ShufflingCardsDiv2</td></tr><tr><td>Method:</td><td>shuffle</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string shuffle(vector &lt;int&gt; permutation)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>permutation</b> will contain between 4 and 200 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>The number of elements in <b>permutation</b> will be even.</td></tr><tr><td align="center" valign="top">-</td><td>The elements of <b>permutation</b> will form a permutation of the numbers 1 through 2N, where 2N is the number of elements in <b>permutation</b>.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1,2,3,4}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">Fox Ciel can make the following two shuffles: {1,2,3,4} -> {1,3,2,4} -> {1,2,3,4}.
+<br></br>
+Note that she cannot simply keep the deck in sorted order, the shuffling procedure does not allow that.
+Luckily for Ciel, it is possible to shuffle the deck in the first round and to return the cards to their original places in the second round.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{4,3,2,1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1,3,2,4}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Impossible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">Ciel can produce this permutation after the first round of shuffling.
+However, it is not possible to start with a sorted deck and to have this permutation of cards after two rounds of shuffling.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1,4,2,5,3,6}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Impossible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{8,5,4,9,1,7,6,10,3,2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Possible&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
