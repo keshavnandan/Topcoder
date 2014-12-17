@@ -1,0 +1,44 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td>
+Two equal length sequences of nucleic acids (A,C,T,or G) are judged based on 
+a 4x4 score 
+matrix. The homology score for the sequences is just the sum of the scores
+at each position in the sequence, looked up in the matrix.
+For example, if the two sequences were ACTA and GATC then their homology
+score would be score(A,G) + score(C,A) + score(T,T) + score(A,C).
+
+<p>
+Our problem is to construct the score matrix. It has the following restrictions:
+</p><ul><li>
+    1) All entries must be integers between -10 and 10 inclusive</li><li>
+    2) It must be symmetric ( score(x,y) = score(y,x) )</li><li>
+    3) Diagonal entries must be positive ( score(x,x)&gt;0 )</li><li>
+    4) The sum of the 16 entries must be 0.</li></ul>
+
+We are given a set of equal length sequences that are known to be homologous.
+We want to fill in the score matrix so that the average homology score for all
+the pairs from the set is maximized. If there are n sequences in the set, then
+there are n*(n-1)/2 pairs to consider.
+<p>
+Create a class BioScore that contains a method maxAvg that is given <b>knownSet</b>,
+the list of sequences known to be homologous. The method computes the optimum
+scoring matrix and returns the resulting maximal average homology score for the
+pairs from <b>knownSet</b>.
+</p>
+
+
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>BioScore</td></tr><tr><td>Method:</td><td>maxAvg</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>double</td></tr><tr><td>Method signature:</td><td>double maxAvg(vector &lt;string&gt; knownSet)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>64</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>knownSet</b> will contain between 2 and 50 elements inclusive</td></tr><tr><td align="center" valign="top">-</td><td>each element of <b>knownSet</b> will contain only the uppercase letters A,C,T, and G.</td></tr><tr><td align="center" valign="top">-</td><td>each element of <b>knownSet</b> will contain between 1 and 50 characters inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>all elements of <b>knownSet</b> will contain the same number of characters.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;AAA&quot;,&quot;AAA&quot;,&quot;AAC&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 30.0</pre></td></tr><tr><td><table><tr><td colspan="2">
+
+   Make score(A,A) and score(A,C) be 10. It is then easy to satisfy the 
+   remaining requirements. All three pairwise comparisons score 30.0.
+
+
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;ACTGACTGACTG&quot;,&quot;GACTTGACCTGA&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: -4.0</pre></td></tr><tr><td><table><tr><td colspan="2"> 
+   Here, there are no positions in which the letters in the two strings match each other. So we should give each exact match (each diagonal entry of the score matrix) the 
+   smallest
+   possible score, 1.  The remaining 12 pairs are each present at one position
+   in the comparison
+   so the best we can do is to choose those 12 scores so they add up to -4 in
+   any manner. Now the sum of all the matrix entries is 0, and the resulting
+   score for the one pairwise comparison is -4.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;ACTAGAGAC&quot;,&quot;AAAAAAAAA&quot;,&quot;TAGTCATAC&quot;,&quot;GCAGCATTC&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 50.5</pre></td></tr><tr><td><table><tr><td colspan="2">
+</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
