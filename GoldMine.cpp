@@ -24,11 +24,7 @@ class GoldMine{
           for(int i = 0; i <= 6; i++){
             if(k < i) cost += v[i]*k*60;
             else cost += v[i]*(50*i - 20*(k-i));
-            // cout<<v[i]<<", ";
-            // cout<<cost<<" ";
           }
-          // cost /= 100;
-          // cout<<m<<" "<<k<<" = "<<cost<<endl;
           return cost;
         }
         vector <int> getAllocation(vector <string> mines, int miners) { 
@@ -59,7 +55,6 @@ class GoldMine{
                   dp[i][s] = maxv;
                   p[i][s] = maxp;
                   q[i][s] = maxq;
-                  // cout<<"dp["<<i<<"]["<<s<<"] = "<<maxv<<" p = <"<<maxp.first<<","<<maxp.second<<"> q = "<<maxq<<endl;
                 }
 
             int i = n-1, s = miners;
@@ -69,23 +64,8 @@ class GoldMine{
               pi t = p[i][s];
               i = t.first; s = t.second;
             }
-            if(n == 9){
-              int a[9] = {5, 5, 5, 5, 6, 6, 5, 5, 6};
-              vi av(a, a+9);
-              int acost = 0;
-              for(int i = 0; i < 9; i++) acost += value(mines[i], a[i]);
-              cout<<"acost = "<<acost<<endl;
-              int b[9] = {5, 6, 6, 5, 5, 6, 5, 5, 5};
-              vi bv(b, b+9);
-              int bcost = 0;
-              for(int i = 0; i < 9; i++) bcost += value(mines[i], b[i]);
-              cout<<"bcost = "<<bcost<<endl;
-            }
-
             cout<<"maxval = "<<dp[n-1][miners]<<endl;
-
             return ret;
-            //return dp[n-1][miners];
         }
         
 // BEGIN CUT HERE
