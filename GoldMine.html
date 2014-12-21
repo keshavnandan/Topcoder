@@ -1,0 +1,157 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td>Aurum Nugget, Inc. has just purchased some new gold mines.  They have a number of miners available to work in the mines, and would like to allocate the miners in such a way as to maximize their profit.  Each mine can support a maximum of 6 miners, and contains a maximum of 6 major ore deposits.  After the miners have been allocated to mines, the company earns (or loses) money as follows:<br></br> <ol>
+<li>If a mine has fewer miners than ore deposits, the company will earn $60 per miner allocated to that mine.</li>
+<li>If a mine has the same number of miners as ore deposits, the company will earn $50 per miner allocated to that mine.</li>
+<li>If a mine has more miners than ore deposits, the company will earn $50 for each miner up to the number of ore deposits, and will lose $20 for each extra miner allocated to that mine.</li>
+</ol><br></br>
+Even if it will lose money, the company must employ every available worker at one of its mines.<br></br>
+<br></br>
+Write a class GoldMine with a method getAllocation that takes in a vector &lt;string&gt; <b>mines</b> and a int <b>miners</b>.  Each element of <b>mines</b> will be in the form &quot;&lt;p0&gt;, &lt;p1&gt;, &lt;p2&gt;, &lt;p3&gt;, &lt;p4&gt;, &lt;p5&gt;, &lt;p6&gt;&quot; (quotes for clarity) where each &lt;pn&gt; is a three digit number (with leading 0s if necessary.) Each &lt;pn&gt; represents the probability (as a percentage) that n deposits are present in the mine, and all &lt;pn&gt;'s within a mine will always add up to 100. <b>miners</b> is the number of employees the company must allocate.  The method should return a vector &lt;int&gt; indicating the number of <b>miners</b> to place in each mine in order to maximize the expected profit (where element <i>i</i> in the returned vector &lt;int&gt; corresponds to element <i>i</i> of <b>mines</b>).  If there are multiple allocations which maximize expected profit, return the allocation which places more miners in earlier mines.  More specifically, when comparing two different allocations  X<sub>0</sub>, X<sub>1</sub>, X<sub>2</sub>, ..., X<sub>n</sub> and Y<sub>0</sub>, Y<sub>1</sub>, Y<sub>2</sub>, ..., Y<sub>n</sub> that yield the same expected profit, let <i>i</i> be the smallest index such that X<sub>i</sub> is not equal to Y<sub>i</sub>.  Then if X<sub>i</sub> &gt; Y<sub>i</sub>, allocation X<sub>0</sub>, X<sub>1</sub>, X<sub>2</sub>, ..., X<sub>n</sub> is preferred to allocation Y<sub>0</sub>, Y<sub>1</sub>, Y<sub>2</sub>, ..., Y<sub>n</sub>.<br></br>
+<br></br>
+For example, suppose the company has 4 miners available, and purchased the following two mines:<br></br>
+<pre>
+	&quot;000, 030, 030, 040, 000, 000, 000&quot;
+        &quot;020, 020, 020, 010, 010, 010, 010&quot;
+</pre>
+<br></br>
+The first mine has a 30 percent chance of containing 1 ore deposit, a 30 percent chance of containing 2 ore deposits, and a 40 percent chance of containing 3 ore deposits.  The second mine has a 20 percent chance of containing 0 ore deposits, a 20 percent chance of containing 1 ore deposit, a 20 percent chance of containing 2 ore deposits, a 10 percent chance of containing 3 ore deposits, a 10 percent chance of containing 4 ore deposits, a 10 percent chance of containing 5 ore deposits, and a 10 percent chance of containing 6 ore deposits.<br></br>
+<br></br>
+In this scenario, the company can make the most money by allocating two miners at each mine, yielding an expected profit of 153:<br></br>
+<pre>
+	First Mine
+	   0.3*30 + 0.3*100 + 0.4*120 =
+           9 + 30 + 48 = 87
+
+	Second Mine
+           0.2*(-40) + 0.2*30 + 0.2*100 + 0.1*120 + 0.1*120 + 0.1*120 + 0.1*120 = 
+           -8 + 6 + 20 + 12 + 12 + 12 + 12 = 66
+
+	Total Profit
+	   87 + 66 = 153
+</pre>
+<br></br>
+The method would have returned { 2, 2 }.  Other allocations would have yielded:<br></br>
+<pre>
+	{ 0, 4 } :  75
+	{ 1, 3 } : 132
+	{ 3, 1 } : 129
+	{ 4, 0 } :  67
+</pre>
+<br></br></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>GoldMine</td></tr><tr><td>Method:</td><td>getAllocation</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;, int</td></tr><tr><td>Returns:</td><td>vector &lt;int&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;int&gt; getAllocation(vector &lt;string&gt; mines, int miners)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>64</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>Each mine can support a maximum of 6 miners.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>mines</b> will contain between 1 and 50 elements, inclusive</td></tr><tr><td align="center" valign="top">-</td><td>each element of <b>mines</b> will contain exactly 33 characters</td></tr><tr><td align="center" valign="top">-</td><td>each element of <b>mines</b> will contain only digits ('0'-'9'), commas (',') and spaces (' ')</td></tr><tr><td align="center" valign="top">-</td><td>each element of <b>mines</b> will be in the form &quot;&lt;p0&gt;, &lt;p1&gt;, &lt;p2&gt;, &lt;p3&gt;, &lt;p4&gt;, &lt;p5&gt;, &lt;p6&gt;&quot; (quotes for clarity) where each &lt;pn&gt; is a three digit number (with leading 0s if necessary.) Each &lt;pn&gt; represents the probability (as a percentage) that n deposits are present in the mine, and all &lt;pn&gt;'s within a mine will always add up to 100</td></tr><tr><td align="center" valign="top">-</td><td><b>miners</b> will be between 1 and (6 * the number of elements in <b>mines</b>), inclusive</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ &quot;000, 030, 030, 040, 000, 000, 000&quot;,
+  &quot;020, 020, 020, 010, 010, 010, 010&quot; }</pre></td></tr><tr><td><pre>4</pre></td></tr></table></td></tr><tr><td><pre>Returns: { 2,  2 }</pre></td></tr><tr><td><table><tr><td colspan="2">This is the example from the problem statement.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ &quot;100, 000, 000, 000, 000, 000, 000&quot;,
+  &quot;100, 000, 000, 000, 000, 000, 000&quot;,
+  &quot;100, 000, 000, 000, 000, 000, 000&quot;,
+  &quot;100, 000, 000, 000, 000, 000, 000&quot;,
+  &quot;100, 000, 000, 000, 000, 000, 000&quot; }</pre></td></tr><tr><td><pre>8</pre></td></tr></table></td></tr><tr><td><pre>Returns: { 6,  2,  0,  0,  0 }</pre></td></tr><tr><td><table><tr><td colspan="2">There are no deposits in any mines.  However, since the company must employ every available worker, it loses $160 ($20 per worker).  The proper allocation places 6 workers in the first mine and 2 workers in the second mine, since that is the allocation that places more workers in earlier mines and the maximum number of workers a mine can support is 6.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ &quot;050, 000, 000, 000, 000, 050, 000&quot;,
+  &quot;050, 000, 000, 000, 000, 050, 000&quot;,
+  &quot;050, 000, 000, 000, 000, 050, 000&quot;,
+  &quot;050, 000, 000, 000, 000, 050, 000&quot;,
+  &quot;050, 000, 000, 000, 000, 050, 000&quot;,
+  &quot;050, 000, 000, 000, 000, 050, 000&quot;,
+  &quot;050, 000, 000, 000, 000, 050, 000&quot;,
+  &quot;050, 000, 000, 000, 000, 050, 000&quot;,
+  &quot;050, 000, 000, 000, 000, 050, 000&quot;,
+  &quot;050, 000, 000, 000, 000, 050, 000&quot; }</pre></td></tr><tr><td><pre>30</pre></td></tr></table></td></tr><tr><td><pre>Returns: { 4,  4,  4,  4,  4,  4,  4,  2,  0,  0 }</pre></td></tr><tr><td><table><tr><td colspan="2">Each mine has a 50 percent chance of containing no deposits and a 50 percent chance of containing 5 deposits.  The expected value from a mine like this is maximized with 4 workers. Since we allocate workers to earlier mines first, the early mines are filled with 4 workers each, and the remaining 2 miners are placed in the next available mine.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot;,
+  &quot;026, 012, 005, 013, 038, 002, 004&quot; }</pre></td></tr><tr><td><pre>56</pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+{ 2,  2,  2,  2,  2,  2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 }</pre></td></tr><tr><td></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ &quot;100, 000, 000, 000, 000, 000, 000&quot;,
+  &quot;090, 010, 000, 000, 000, 000, 000&quot;,
+  &quot;080, 020, 000, 000, 000, 000, 000&quot;,
+  &quot;075, 025, 000, 000, 000, 000, 000&quot;,
+  &quot;050, 050, 000, 000, 000, 000, 000&quot;,
+  &quot;025, 075, 000, 000, 000, 000, 000&quot;,
+  &quot;020, 080, 000, 000, 000, 000, 000&quot;,
+  &quot;010, 090, 000, 000, 000, 000, 000&quot;,
+  &quot;000, 100, 000, 000, 000, 000, 000&quot;,
+  &quot;000, 090, 010, 000, 000, 000, 000&quot;,
+  &quot;000, 080, 020, 000, 000, 000, 000&quot;,
+  &quot;000, 075, 025, 000, 000, 000, 000&quot;,
+  &quot;000, 050, 050, 000, 000, 000, 000&quot;,
+  &quot;000, 025, 075, 000, 000, 000, 000&quot;,
+  &quot;000, 020, 080, 000, 000, 000, 000&quot;,
+  &quot;000, 010, 090, 000, 000, 000, 000&quot;,
+  &quot;000, 000, 100, 000, 000, 000, 000&quot;,
+  &quot;000, 000, 090, 010, 000, 000, 000&quot;,
+  &quot;000, 000, 080, 020, 000, 000, 000&quot;,
+  &quot;000, 000, 075, 025, 000, 000, 000&quot;,
+  &quot;000, 000, 050, 050, 000, 000, 000&quot;,
+  &quot;000, 000, 025, 075, 000, 000, 000&quot;,
+  &quot;000, 000, 020, 080, 000, 000, 000&quot;,
+  &quot;000, 000, 010, 090, 000, 000, 000&quot;,
+  &quot;000, 000, 000, 100, 000, 000, 000&quot;,
+  &quot;000, 000, 000, 100, 000, 000, 000&quot;,
+  &quot;000, 000, 000, 090, 010, 000, 000&quot;,
+  &quot;000, 000, 000, 080, 020, 000, 000&quot;,
+  &quot;000, 000, 000, 075, 025, 000, 000&quot;,
+  &quot;000, 000, 000, 050, 050, 000, 000&quot;,
+  &quot;000, 000, 000, 025, 075, 000, 000&quot;,
+  &quot;000, 000, 000, 020, 080, 000, 000&quot;,
+  &quot;000, 000, 000, 010, 090, 000, 000&quot;,
+  &quot;000, 000, 000, 000, 100, 000, 000&quot;,
+  &quot;000, 000, 000, 000, 090, 010, 000&quot;,
+  &quot;000, 000, 000, 000, 080, 020, 000&quot;,
+  &quot;000, 000, 000, 000, 075, 025, 000&quot;,
+  &quot;000, 000, 000, 000, 050, 050, 000&quot;,
+  &quot;000, 000, 000, 000, 025, 075, 000&quot;,
+  &quot;000, 000, 000, 000, 020, 080, 000&quot;,
+  &quot;000, 000, 000, 000, 010, 090, 000&quot;,
+  &quot;000, 000, 000, 000, 000, 100, 000&quot;,
+  &quot;000, 000, 000, 000, 000, 090, 010&quot;,
+  &quot;000, 000, 000, 000, 000, 080, 020&quot;,
+  &quot;000, 000, 000, 000, 000, 075, 025&quot;,
+  &quot;000, 000, 000, 000, 000, 050, 050&quot;,
+  &quot;000, 000, 000, 000, 000, 025, 075&quot;,
+  &quot;000, 000, 000, 000, 000, 020, 080&quot;,
+  &quot;000, 000, 000, 000, 000, 010, 090&quot;,
+  &quot;000, 000, 000, 000, 000, 000, 100&quot; }</pre></td></tr><tr><td><pre>150</pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+{ 0,  0,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  2,  2,  2,  2,  2,
+  2,  2,  3,  3,  3,  3,  3,  3,  3,  3,  3,  4,  4,  4,  4,  4,  4,  4,
+  4,  4,  5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  6,  6 }</pre></td></tr><tr><td></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
