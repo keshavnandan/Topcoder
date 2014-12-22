@@ -28,44 +28,37 @@ class GoldMine{
           return cost;
         }
         vector <int> getAllocation(vector <string> mines, int miners) { 
-           int dp[55][500];
-           int q[55][500];
-           pi p[55][500];
+           int C[55][8], D[55][8];
+           int P[55];
            int n = mines.size();
-           for(int k = 0; k <= miners; k++){
-              if(k <= 6) dp[0][k] = value(mines[0], k);
-              else dp[0][k] = -1000000;
-              p[0][k] = make_pair(-1, -1);
-              q[0][k] = k;
-            }
+           for(int i = 0; i < n; i++)
+            for(int k = 0; k <= 6; k++)
+              C[i][k] = value(mines[i], k);
 
-           for(int i = 1; i < n; i++)
-              for(int s = 0; s <= miners; s++){
-                  int maxv = -1000000, maxq = 10;
-                  pi maxp = make_pair(-1, -1);
-                  for(int k = 0; k <= 6; k++){
-                    if(s < k) continue;
-                    int val = dp[i-1][s-k]+value(mines[i], k);
-                    if(maxv < val){
-                      maxv = val;
-                      maxp = make_pair(i-1, s-k);
-                      maxq = k;
-                    }
-                  }
-                  dp[i][s] = maxv;
-                  p[i][s] = maxp;
-                  q[i][s] = maxq;
-                }
+          fill(P, P+55, 1);
+          for(int i = 0; i < n; i++)
+            for(int j = 1; j <= 6; j++)
+              D[i][j] = C[i][j] - C[i][j-1];
 
-            int i = n-1, s = miners;
-            vi ret(n);
-            while(i >= 0){
-              ret[i] = q[i][s];
-              pi t = p[i][s];
-              i = t.first; s = t.second;
+          int s = 0;
+          while(s < miners){
+            int mi = 0, maxv = -1000000;
+            for(int i = 0; i < n; i++){
+              if(P[i] <= 6 && D[i][P[i]] > maxv){
+                maxv = D[i][P[i]];
+                mi = i;
+              }
             }
-            cout<<"maxval = "<<dp[n-1][miners]<<endl;
-            return ret;
+            P[mi]++;
+            s++;
+          }
+          vi ret;
+          for(int i = 0; i < n; i++){
+            ret.push_back(P[i]-1);
+            cout<<ret[i]<<" ";
+          }
+          cout<<endl;
+          return ret;
         }
         
 // BEGIN CUT HERE
