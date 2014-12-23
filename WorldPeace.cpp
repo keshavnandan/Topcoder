@@ -32,12 +32,15 @@ class WorldPeace{
           ll lim = sum/k;
           if(valid(k, c, lim)) return lim;
           ll low = 1, high = lim, mid = lim;
-          while(high >= low){
+          while(low <= high){
             mid = (low+high)/2;
-            if(valid(k, c, mid)) low = mid+1;
+            if(valid(k, c, mid)){
+              if(!valid(k, c, mid+1)) return mid;
+              low = mid+1;
+            }
             else high = mid-1;
           }
-          return high;
+          return mid;
         } 
         
 // BEGIN CUT HERE
