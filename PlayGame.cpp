@@ -18,34 +18,38 @@ typedef vector<vs> vvs;
 class PlayGame{ 
         public: 
         int saveCreatures(vector <int> you, vector <int> computer) {
-        	int n = you.size();
-        	if(n == 0) return 0;
-        	sort(you.begin(), you.end());
-        	sort(computer.begin(), computer.end());
-        	if(you[n-1] <= computer[n-1]){
-        		swap(you[0], you[n-1]);
-        		you.pop_back();
-        		computer.pop_back();
-        		return saveCreatures(you, computer);
-        	}
-        	
-        	int i = n-1;
-        	while(i >= 0 && you[i] > computer[n-1]) i--;
-        	swap(you[++i], you[n-1]);
-        	int m = you[n-1];
-        	you.pop_back();
-        	computer.pop_back();
-        	return saveCreatures(you, computer) + m;
+                int n = you.size();
+                if(n == 0) return 0;
+
+                int done[55];
+                fill(done, done+50, 0);
+                int sol = 0;
+                for(int i = 0; i < you.size(); i++){
+                        sort(you.begin(), you.begin()+n);
+                        sort(computer.begin(), computer.begin()+n);
+                        if(you[n-1] <= computer[n-1]){
+                                swap(you[0], you[n-1]);
+                        }
+                        else {
+                                int i = n-1;
+                                while(i >= 0 && you[i] > computer[n-1]) i--;
+                                swap(you[++i], you[n-1]);
+                                int m = you[n-1];
+                                sol += m;
+                        }
+                        n--;
+                }
+                return sol;
         } 
         
 // BEGIN CUT HERE
-	public:
-	void run_test(int Case) { if ((Case == -1) || (Case == 0)) test_case_0(); if ((Case == -1) || (Case == 1)) test_case_1(); if ((Case == -1) || (Case == 2)) test_case_2(); if ((Case == -1) || (Case == 3)) test_case_3(); if ((Case == -1) || (Case == 4)) test_case_4(); }
-	private:
-	template <typename T> string print_array(const vector<T> &V) { ostringstream os; os << "{ "; for (typename vector<T>::const_iterator iter = V.begin(); iter != V.end(); ++iter) os << '\"' << *iter << "\","; os << " }"; return os.str(); }
-	void verify_case(int Case, const int &Expected, const int &Received) { cerr << "Test Case #" << Case << "..."; if (Expected == Received) cerr << "PASSED" << endl; else { cerr << "FAILED" << endl; cerr << "\tExpected: \"" << Expected << '\"' << endl; cerr << "\tReceived: \"" << Received << '\"' << endl; } }
-	void test_case_0() { int Arr0[] = {5, 15, 100, 1, 5}; vector <int> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arr1[] = {5, 15, 100, 1, 5}; vector <int> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); int Arg2 = 120; verify_case(0, Arg2, saveCreatures(Arg0, Arg1)); }
-	void test_case_1() { int Arr0[] = {1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 
+        public:
+        void run_test(int Case) { if ((Case == -1) || (Case == 0)) test_case_0(); if ((Case == -1) || (Case == 1)) test_case_1(); if ((Case == -1) || (Case == 2)) test_case_2(); if ((Case == -1) || (Case == 3)) test_case_3(); if ((Case == -1) || (Case == 4)) test_case_4(); }
+        private:
+        template <typename T> string print_array(const vector<T> &V) { ostringstream os; os << "{ "; for (typename vector<T>::const_iterator iter = V.begin(); iter != V.end(); ++iter) os << '\"' << *iter << "\","; os << " }"; return os.str(); }
+        void verify_case(int Case, const int &Expected, const int &Received) { cerr << "Test Case #" << Case << "..."; if (Expected == Received) cerr << "PASSED" << endl; else { cerr << "FAILED" << endl; cerr << "\tExpected: \"" << Expected << '\"' << endl; cerr << "\tReceived: \"" << Received << '\"' << endl; } }
+        void test_case_0() { int Arr0[] = {5, 15, 100, 1, 5}; vector <int> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arr1[] = {5, 15, 100, 1, 5}; vector <int> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); int Arg2 = 120; verify_case(0, Arg2, saveCreatures(Arg0, Arg1)); }
+        void test_case_1() { int Arr0[] = {1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 
  1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,
  1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,
  1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,
@@ -54,9 +58,9 @@ class PlayGame{
  1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,
  1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,
  1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000}; vector <int> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); int Arg2 = 0; verify_case(1, Arg2, saveCreatures(Arg0, Arg1)); }
-	void test_case_2() { int Arr0[] = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19}; vector <int> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arr1[] = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20}; vector <int> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); int Arg2 = 99; verify_case(2, Arg2, saveCreatures(Arg0, Arg1)); }
-	void test_case_3() { int Arr0[] = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11}; vector <int> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arr1[] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1}; vector <int> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); int Arg2 = 65; verify_case(3, Arg2, saveCreatures(Arg0, Arg1)); }
-	void test_case_4() { int Arr0[] = {651, 321, 106, 503, 227, 290, 915, 549, 660, 115,
+        void test_case_2() { int Arr0[] = {1, 3, 5, 7, 9, 11, 13, 15, 17, 19}; vector <int> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arr1[] = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20}; vector <int> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); int Arg2 = 99; verify_case(2, Arg2, saveCreatures(Arg0, Arg1)); }
+        void test_case_3() { int Arr0[] = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11}; vector <int> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arr1[] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1}; vector <int> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); int Arg2 = 65; verify_case(3, Arg2, saveCreatures(Arg0, Arg1)); }
+        void test_case_4() { int Arr0[] = {651, 321, 106, 503, 227, 290, 915, 549, 660, 115,
  491, 378, 495, 789, 507, 381, 685, 530, 603, 394,
  7, 704, 101, 620, 859, 490, 744, 495, 379, 781,
  550, 356, 950, 628, 177, 373, 132, 740, 946, 609,
