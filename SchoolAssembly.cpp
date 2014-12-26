@@ -18,29 +18,8 @@ typedef vector<vs> vvs;
 class SchoolAssembly{ 
         public: 
         int getBeans(int k, int q) {
-           int x = 0, p = 0;
-           int a[5] = {0, 0, 0, 0, 0};
-           while(true){
-            ++x;
-            int total = 20;
-            for(int i = 0; i < 5; i++){
-              int j = (p+i)%5;
-              int a1 = a[j]%q;
-              if(i == 4){
-                p = j;
-                a[j] += total;
-              }
-              else{
-                if(total == 0) continue;
-                int a2 = min(total, q-1-a1);
-                a[j] += a2;
-                total -= a2;
-              }
-            }
-            int n = 0;
-            for(int i = 0; i < 5; i++) n += a[i]/q;
-            if(n >= k) return x;
-           }
+          //Max number of beans in each bucket so that the total number of sets of q beans of a particular colour is k
+          return (k*q + 4*(q-1) + 19)/20;
         } 
         
 // BEGIN CUT HERE
