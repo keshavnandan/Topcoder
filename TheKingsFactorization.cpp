@@ -20,31 +20,38 @@ typedef long long ll;
 class TheKingsFactorization{ 
         public: 
 
-        vector<long long> getVector(long long N, vector<long long> primes) {
-
+        vector<ll> getVector(long long N, vector<long long> primes) {
+           int m = primes.size();
            vector<ll> res;
-
-           for(ll p : primes){
-            res.push_back(p);
-            N /= p;
-            if(N%p == 0){
-              N /= p;
-              res.push_back(p);
-            }
+           res.push_back(primes[0]);
+ 
+           if(m == 1){
+             if(N != primes[0]){
+               res.push_back(N/primes[0]);
+               return res;
+             }
+             return res;
+           }
+           for(int i = 0; i+1 < m; i++){
+            ll p0 = primes[i], p1 = primes[i+1];
+            N /= p0;
+             for(ll p = p0; p <= p1; p++)
+               if(N%p == 0){
+                 res.push_back(p);
+                 N /= p;
+                 p = p1+1;
+               }
+             res.push_back(p1);
            }
 
-           for(int k = 3; k <= 1000000; k += 2){
-              if(N%k == 0)
-                while(N%k == 0){
-                  res.push_back(k);
-                  N /= k;
-                }
-           }
-           
+           N /= primes[m-1];
+
            if(N > 1) res.push_back(N);
-           sort(res.begin(), res.end());
+
            return res;
         } 
+        
+ 
         
 // BEGIN CUT HERE
   public:
