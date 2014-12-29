@@ -17,30 +17,22 @@ typedef vector<vs> vvs;
 
 class Apothecary{ 
         public:
-        int next(int x){
-            int i = 1;
-            while(i < x) i *= 3;
-            return i;
-        }
         vi balance(int W){
-            vi v[2];
-            int n = W, m = 1;
-            while(true){
-                int k = next(n);
-                if(k/2 < n){
-                    v[m].push_back(k);
-                    if(k == n) break;
-                    n = k-n;
-                    m = (m+1)%2;
-                }
-                else{
-                    v[m].push_back(k/3);
-                    n = n-k/3;
-                }
-            }
             vi r;
-            for(int p : v[0]) r.push_back(-p);
-            for(int p : v[1]) r.push_back(p);     
+            int n = W;
+            int c = 1;
+            while(n > 0){
+                if(n%3 == 1){
+                    r.push_back(c);
+                    n--;
+                }
+                else if(n%3 == 2){
+                    r.push_back(-c);
+                    n++;
+                }
+                c *= 3;
+                n /= 3;
+            }
             sort(r.begin(), r.end());
             return r;
         } 
