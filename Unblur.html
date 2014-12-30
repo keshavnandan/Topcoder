@@ -1,0 +1,152 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+A simple way to blur an image is to replace each pixel
+with the average of it and its neighboring pixels.
+The value of each pixel in the blurred image is computed
+by adding the values of the 3x3 region centered at the
+corresponding pixel of the original image, and dividing
+by 9.
+</p>
+<p>
+When computing the value of pixels on the border, the 3x3 region will
+fall partially outside of the original image.  Assume that
+pixels outside of the original image are black.
+</p>
+
+<p>
+For example, given the following original image:
+</p>
+
+<center>
+<img src="http://www.topcoder.com/contest/problem/UnBlur/unblur_fig1a.gif"></img>
+</center>
+
+<p>
+the algorithm described above results in the following blurred image:
+</p>
+
+<center>
+<img src="http://www.topcoder.com/contest/problem/UnBlur/unblur_fig1b.gif"></img>
+</center>
+
+<p>
+Write a method that will, given a blurred image, return the original image.
+The original image will contain only black and white pixels.
+All pixels on the top and bottom rows and left and right
+columns of the original image will be black.
+All values of the blurred image will therefore be: 0 (black), 1/9, 2/9,
+3/9, 4/9, 5/9, 6/9, 7/9, 8/9, or 9/9 (white).
+</p>
+<p>
+The blurred image will be given as a vector &lt;string&gt;.
+Each character in the blurred image will be a character between
+'0' and '9', inclusive, giving the value of that pixel multiplied
+by nine.
+For example, the blurred image above would be given as:
+</p>
+
+<pre>
+
+{ &quot;1233321000000000123332100000000000000000000&quot;,
+  &quot;1244422233222332334343323322232112332223321&quot;,
+  &quot;1255523344343443545343434434343233432334432&quot;,
+  &quot;0033303455465775633011445546454355753457753&quot;,
+  &quot;0033303333364543533011433336333364521346542&quot;,
+  &quot;0033303455464532445343545546454355753446542&quot;,
+  &quot;0022202344342200234343434434343233432323221&quot;,
+  &quot;0011101233221100123332223322232112332211111&quot; }
+</pre>
+
+<p>
+Return the original image as a vector &lt;string&gt;.
+For each pixel in the original image, return a '.'
+if it is black and '#' if it is white.
+For example, the original image for the example
+above would be returned as:
+</p>
+
+<pre>
+{ &quot;...........................................&quot;,
+  &quot;.#####...........#####.....................&quot;,
+  &quot;...#...####.####.#...#.####.###..####.####.&quot;,
+  &quot;...#...#..#.#..#.#.....#..#.#..#.#....#..#.&quot;,
+  &quot;...#...#..#.####.#.....#..#.#..#.###..####.&quot;,
+  &quot;...#...#..#.#....#...#.#..#.#..#.#....#.#..&quot;,
+  &quot;...#...####.#....#####.####.###..####.#..#.&quot;,
+  &quot;...........................................&quot; } 
+</pre>
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Unblur</td></tr><tr><td>Method:</td><td>original</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>vector &lt;string&gt;</td></tr><tr><td>Method signature:</td><td>vector &lt;string&gt; original(vector &lt;string&gt; blurred)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>64</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>blurred</b> will contain between 1 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>blurred</b> will have a length between 1 and 50, inclusive, and contain only characters between '0' and '9', inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>blurred</b> will have the same length.</td></tr><tr><td align="center" valign="top">-</td><td><b>blurred</b> will be the result of blurring a black and white image.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ &quot;1221&quot;,
+  &quot;1221&quot;,
+  &quot;1221&quot; }</pre></td></tr></table></td></tr><tr><td><pre>Returns: { &quot;....&quot;,  &quot;.##.&quot;,  &quot;....&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+All pixels in the center two columns are adjacent to two white pixels in the source image.  The remaining pixels are adjacent to only one.
+</p>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ &quot;00000&quot;,
+  &quot;00000&quot;,
+  &quot;00000&quot;,
+  &quot;00000&quot; }</pre></td></tr></table></td></tr><tr><td><pre>Returns: { &quot;.....&quot;,  &quot;.....&quot;,  &quot;.....&quot;,  &quot;.....&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">A solid black image blurs to all zeros.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ &quot;0011212121100&quot;,
+  &quot;0123333333210&quot;,
+  &quot;0123333333210&quot;,
+  &quot;1233333333321&quot;,
+  &quot;1233333333321&quot;,
+  &quot;1233333333321&quot;,
+  &quot;0112121212110&quot; } </pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+{ &quot;.............&quot;,
+  &quot;...#.#.#.#...&quot;,
+  &quot;..#.#.#.#.#..&quot;,
+  &quot;.............&quot;,
+  &quot;.#.#.#.#.#.#.&quot;,
+  &quot;..#.#.#.#.#..&quot;,
+  &quot;.............&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+original:
+</p>
+<img src="http://graphics.lcs.mit.edu/~legakis/TC/unblur_fig3a.gif"></img>
+<p>
+blurred:
+</p>
+<img src="http://graphics.lcs.mit.edu/~legakis/TC/unblur_fig3b.gif"></img>
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ &quot;1233321000000000123332100000000000000000000&quot;,
+  &quot;1244422233222332334343323322232112332223321&quot;,
+  &quot;1255523344343443545343434434343233432334432&quot;,
+  &quot;0033303455465775633011445546454355753457753&quot;,
+  &quot;0033303333364543533011433336333364521346542&quot;,
+  &quot;0033303455464532445343545546454355753446542&quot;,
+  &quot;0022202344342200234343434434343233432323221&quot;,
+  &quot;0011101233221100123332223322232112332211111&quot; } </pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+{ &quot;...........................................&quot;,
+  &quot;.#####...........#####.....................&quot;,
+  &quot;...#...####.####.#...#.####.###..####.####.&quot;,
+  &quot;...#...#..#.#..#.#.....#..#.#..#.#....#..#.&quot;,
+  &quot;...#...#..#.####.#.....#..#.#..#.###..####.&quot;,
+  &quot;...#...#..#.#....#...#.#..#.#..#.#....#.#..&quot;,
+  &quot;...#...####.#....#####.####.###..####.#..#.&quot;,
+  &quot;...........................................&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2">This is the example from the problem statement.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ &quot;0000123210000&quot;,
+  &quot;0012456542100&quot;,
+  &quot;0135789875310&quot;,
+  &quot;0258988898520&quot;,
+  &quot;1479865689741&quot;,
+  &quot;2589742479852&quot;,
+  &quot;2589742479852&quot;,
+  &quot;1479865689741&quot;,
+  &quot;0258988898520&quot;,
+  &quot;0135789875310&quot;,
+  &quot;0012456542100&quot;,
+  &quot;0000123210000&quot; }
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: 
+{ &quot;.............&quot;,
+  &quot;.....###.....&quot;,
+  &quot;...#######...&quot;,
+  &quot;..#########..&quot;,
+  &quot;..####.####..&quot;,
+  &quot;.####...####.&quot;,
+  &quot;.####...####.&quot;,
+  &quot;..####.####..&quot;,
+  &quot;..#########..&quot;,
+  &quot;...#######...&quot;,
+  &quot;.....###.....&quot;,
+  &quot;.............&quot; }</pre></td></tr><tr><td><table><tr><td colspan="2"><p>
+original:
+</p>
+<img src="http://graphics.lcs.mit.edu/~legakis/TC/unblur_fig4a.gif"></img>
+<p>
+blurred:
+</p>
+<img src="http://graphics.lcs.mit.edu/~legakis/TC/unblur_fig4b.gif"></img></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
