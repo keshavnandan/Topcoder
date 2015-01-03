@@ -20,27 +20,17 @@ int maxp = 0, n = 0;
 int city[10][105];
 int C[10][10], T[10][10];
 vi money;
+int visited[15];
 
-void solve(vi v){
-  vi uv;
-  int curr = 0, t = 0, p = 0;
-  v.push_back(0);
-  for(int i : v){
-    t += T[curr][i];
-    p -= C[curr][i];
-    p += money[i]/city[i][t];
-    curr = i;
-  }
-  maxp = max(p, maxp);
-  v.pop_back();
-  for(int i = 1; i < n; i++) 
-    if(find(v.begin(), v.end(), i) == v.end()) 
-      uv.push_back(i);
+void solve(int pos, int time, int profit){
 
-  for(int i : uv){
-    v.push_back(i);
-    solve(v);
-    v.pop_back();
+  maxp = max(profit-C[pos][0], maxp);
+  for(int i = 1; i < n; i++){
+    if(visited[i] == 1) continue;
+    visited[i] = 1;
+    int t = time+T[pos][i];
+    solve(i, t, profit-C[pos][i]+(money[i]/city[i][t]));
+    visited[i] = 0;
   }
 }
 
@@ -58,13 +48,10 @@ class TCSocks{
            for(int i = 0; i < n; i++){
             stringstream ss(cost[i]), st(time[i]);
             for(int j = 0; j < n; j++){
-              int k;
-              ss>>k;
-              C[i][j] = k;
-              st>>k;
-              T[i][j] = k;
+              ss>>C[i][j];
+              st>>T[i][j];
             }
-          }
+           }
           
           for(string s : competitors){
             stringstream ss(s);
@@ -76,11 +63,7 @@ class TCSocks{
             }
           }
 
-          for(int i = 1; i < n; i++){
-            vi s(1, i);
-            solve(s);
-          }
-
+          solve(0, 0, 0);
           return maxp;
         }
         
