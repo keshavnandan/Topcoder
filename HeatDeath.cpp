@@ -24,9 +24,10 @@ class HeatDeath{
       bool done = false;
       for(int i = 0; i+1 < n; i++)
         if(e[i+1]-e[i] >= 2){
-          t++;
-          e[i]++;
-          e[i+1]--;
+          int m1 = (e[i+1]+e[i])/2, m2 = (e[i+1]+e[i]+1)/2;
+          t += (m1-e[i]); 
+          e[i] = m1;
+          e[i+1] = m2;
           done = true;
           i = n;
         }
