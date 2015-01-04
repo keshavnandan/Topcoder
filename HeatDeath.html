@@ -1,0 +1,26 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+The heat death of the universe occurs when all available energy has
+moved from &quot;hot&quot; (high energy) locations to &quot;cold&quot; (low energy)
+locations.  Hot and cold are relative concepts--energy can flow from
+one location to another if and only if the energy level of the first location is at
+least 2 units greater than the energy level of the second location.  
+Heat death occurs when there are no more locations between which energy can flow.
+Naturally, we would like to put off heat death for
+as long as possible.
+</p>
+
+<p>
+You will be given a vector &lt;int&gt; <b>energy</b> that contains the
+energy levels of all locations in a closed system at time 0.  Every microsecond, a random pair
+of locations whose energy levels differ by at least two units will be chosen,
+and a single unit of energy will flow from the hotter location to the colder location.
+Notice that the locations do not have to be adjacent.
+Depending on the order in which pairs of locations are chosen, heat death could arrive
+in different amounts of time.  Calculate and return the maximum number of microseconds until
+the system reaches heat death.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>HeatDeath</td></tr><tr><td>Method:</td><td>maxTime</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int maxTime(vector &lt;int&gt; energy)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>64</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>energy</b> contains between 2 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>energy</b> is between 1 and 999, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ 5, 7, 9 }</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2">Heat death could arrive in as little as 2 microseconds, if energy flows twice from the third location to the first location.  On the other hand, if energy first flows from the third location to the second location, then from the third location to the first location, and finally from the second location to the first location, heat death can be put off for a total of 3 microseconds.
+(Other sequences may also achieve the maximum.)</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ 5, 6, 5, 6 }</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">No heat can flow.  This system has already reached heat death.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ 1, 1, 1, 1, 1, 999, 999, 999, 999, 999 }</pre></td></tr></table></td></tr><tr><td><pre>Returns: 12435</pre></td></tr><tr><td></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{ 354, 903, 100, 951, 669, 311, 339, 500, 942, 72, 712, 54, 64,
+  572, 7, 977, 74, 524, 314, 160, 526, 729, 114, 691, 771, 704,
+  288, 47, 735, 85, 694, 124, 349, 905, 611, 371, 885, 738, 165,
+  442, 138, 348, 605, 239, 535, 33, 142, 946, 4, 231 }
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: 214090</pre></td></tr><tr><td></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
