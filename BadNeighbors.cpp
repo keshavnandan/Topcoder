@@ -14,25 +14,26 @@ typedef set<int> si;
 typedef vector<int> vi;
 typedef vector<vi> vvi;
 typedef vector<string> vs;
-int a[50], b[50];
 
 class BadNeighbors{ 
         public: 
         int maxDonations(vector <int> d){
             int maxDonation = 1, n = d.size();
+            int a = 0, b = 0, c = 0;
             for(int i = 0; i+1 < n; i++){
-                a[i] = d[i];
-                int maxa = 0;
-                for(int j = 0; j+1 < i; j++) maxa = max(maxa, a[j]);
-                a[i] += maxa;
-                maxDonation = max(maxDonation, a[i]);
+                c = d[i];
+                if(i-2 >= 0) c = max(c, a + d[i]);
+                if(i-1 >= 0) c = max(c, b);
+                maxDonation = max(maxDonation, c);
+                a = b; b = c;
             }
+            a = b = c = 0;
             for(int i = 1; i < n; i++){
-                b[i] = d[i];
-                int maxb = 0;
-                for(int j = 1; j+1 < i; j++) maxb = max(maxb, b[j]);
-                b[i] += maxb;
-                maxDonation = max(maxDonation, b[i]);
+                c = d[i];
+                if(i-2 >= 0) c = max(c, a + d[i]);
+                if(i-1 >= 0) c = max(c, b);
+                maxDonation = max(maxDonation, c);
+                a = b; b = c;
             }
             return maxDonation;
         }
