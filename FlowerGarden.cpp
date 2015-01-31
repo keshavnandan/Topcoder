@@ -4,69 +4,63 @@
 #include <algorithm>
 #include <set>
 #include <map>
+#include <queue>
 #include <cstring>
+#include <climits>
+#include <cstdio>
 using namespace std;
-struct node{
-    int h;
-    int b;
-    int w;
-    node(int hh = 0, int bb = 0, int ww = 0){ h = hh; b = bb; w = ww;}
-};
-bool operator<(const node &l, const node &r){
-        return l.h < r.h;
+typedef pair<int,int> pi;
+typedef set<int> si;
+typedef vector<int> vi;
+typedef vector<vi> vvi;
+typedef vector<string> vs;
+bool operator<(vi c1, vi c2){
+    return c1.front() < c1.back();
 }
-vector<node> A;
-int done[1005];
-int B[1005][1005];
+vi height, bloom, wilt;
+int done[55];
 int n;
-void find_block(){
-
-    vector<int> r(n);
-    fill(r.begin(), r.end(), 0);
-    for(int i = 0; i < n; i++){
-        node p = A[i];
-        for(int j = 0; j < n; j++){
-            node q = A[j];
-            if(j != i && !done[j] && (q.h < p.h) && ((q.b <= p.b && p.b <= q.w) || (q.b <= p.w && p.w <= q.w) || (p.b <= q.b && q.b <= p.w) || (p.b <= q.w && q.w <= p.w))){
-                B[i][j] = 1;
-                cout<<q.h<<" is blocked by "<<p.h<<endl;
-            }
+vi findChain(int i){
+    vi res(1, height[i]);
+    done[i] = 1;
+    for(int j = 0; j < n; j++){
+        if(done[j] || height[j] <= height[i]) continue;
+        if(max(bloom[i], bloom[j]) <= min(wilt[i], wilt[j])){
+            vi t = findChain(j);
+            res.insert(res.end(), t.begin(), t.end());
         }
     }
+    return res;
 }
 
-class FlowerGarden {
+class FlowerGarden{ 
         public:
-        vector <int> getOrdering(vector <int> height, vector <int> bloom, vector <int> wilt)
-        {
+        vector <int> getOrdering(vector <int> _height, vector <int> _bloom, vector <int> _wilt){
+            height = _height; bloom = _bloom; wilt = _wilt;
             n = height.size();
-            vector<int> ret;
-            A.resize(n);
-            memset(done, 0, sizeof(done));
-            memset(B, 0, sizeof(B));
-            for(int i = 0; i < n; i++) A[i] = node(height[i], bloom[i], wilt[i]);
-            sort(A.rbegin(), A.rend());
-            find_block();
-            for(int k = 0; k < n; k++){
-                int block[1005];
-                memset(block, 0, sizeof(block));
-                for(int i = 0; i < n; i++)
-                    for(int j = i+1; j < n; j++)
-                        if(B[i][j] && !done[j]){
-                            block[i] = 1;
-                            j = n;
-                        }
-
-                for(int i = 0; i < n; i++)
-                    if(!block[i] && !done[i]){
-                        ret.push_back(A[i].h);
-                        done[i] = 1;
-                        i = n;
+            vvi r;
+            fill(done, done+55, 0);
+            for(int i = 0; i < n; i++)
+                for(int j = i+1; j < n; j++)
+                    if(height[i] > height[j]){
+                        swap(height[i], height[j]);
+                        swap(bloom[i], bloom[j]);
+                        swap(wilt[i], wilt[j]);
                     }
 
+            for(int i = 0; i < n; i++){
+                if(done[i]) continue;
+                vi t = findChain(i);
+                r.push_back(t);
             }
-            return ret;
+
+            sort(r.rbegin(), r.rend());
+            vi res;
+            for(vi a : r)
+                for(int b : a) res.push_back(b);
+            return res;
         }
+        
 // BEGIN CUT HERE
 	public:
 	void run_test(int Case) { if ((Case == -1) || (Case == 0)) test_case_0(); if ((Case == -1) || (Case == 1)) test_case_1(); if ((Case == -1) || (Case == 2)) test_case_2(); if ((Case == -1) || (Case == 3)) test_case_3(); if ((Case == -1) || (Case == 4)) test_case_4(); if ((Case == -1) || (Case == 5)) test_case_5(); }
@@ -81,13 +75,13 @@ class FlowerGarden {
 	void test_case_5() { int Arr0[] = {3,2,5,4}; vector <int> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arr1[] = {1,2,11,10}; vector <int> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); int Arr2[] = {4,3,12,13}; vector <int> Arg2(Arr2, Arr2 + (sizeof(Arr2) / sizeof(Arr2[0]))); int Arr3[] = { 4,  5,  2,  3 }; vector <int> Arg3(Arr3, Arr3 + (sizeof(Arr3) / sizeof(Arr3[0]))); verify_case(5, Arg3, getOrdering(Arg0, Arg1, Arg2)); }
 
 // END CUT HERE
+ 
+}; 
 
-};
+// BEGIN CUT HERE 
+int main(){
 
-// BEGIN CUT HERE
-     int main()
-     {
-        FlowerGarden ___test;
-        ___test.run_test(-1);
-     }
-// END CUT HERE
+        FlowerGarden ___test; 
+        ___test.run_test(-1); 
+} 
+// END CUT HERE     
