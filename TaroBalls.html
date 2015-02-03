@@ -1,0 +1,22 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Cat Taro has a box with exactly <b>R</b> red balls and <b>B</b> blue balls inside.
+He and his friend decided to play the following game.
+</p>
+<p>
+</p>
+<p>
+Players take alternate turns, Taro goes first.
+In each turn, the current player should take exactly one ball from the box.
+The only constraint is that the color of the ball he took must be different from the color of the previously taken ball (i.e., the one taken by the opponent in the immediately preceding turn).
+(Note that in the first turn Taro can take a ball of any color.)
+The player that cannot take a valid turn loses.
+Both players play optimally.
+</p>
+<p>
+</p>
+<p>
+You are given the two ints <b>R</b> and <b>B</b>. Return "Taro" if Taro wins the game and "Friend" otherwise (quotes for clarity).
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>TaroBalls</td></tr><tr><td>Method:</td><td>getWinner</td></tr><tr><td>Parameters:</td><td>int, int</td></tr><tr><td>Returns:</td><td>string</td></tr><tr><td>Method signature:</td><td>string getWinner(int R, int B)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>R</b> and <b>B</b> will be between 1 and 1000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Taro&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">The best bet for Taro is to start with a blue ball. Then his friend will have to take a red ball, after which Taro will again take a blue one. There is no ball left for the friend. Thus, the winner is Taro.
+<p>
+</p>
+<img src="http://s4.postimg.org/f21sq1lnx/image00.png"></img></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>1</pre></td></tr><tr><td><pre>1</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Friend&quot;</pre></td></tr><tr><td><table><tr><td colspan="2">Taro loses in this case.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>4</pre></td></tr><tr><td><pre>7</pre></td></tr></table></td></tr><tr><td><pre>Returns: &quot;Taro&quot;</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
