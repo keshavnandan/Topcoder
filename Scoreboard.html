@@ -1,0 +1,21 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>You have been hired by a gaming company that makes pinball machines.  They are
+currently making a simple and small pinball machine designed for kids' home
+use.  As the company's newest Pinball Engineer, your job is to make sure that
+the right score is displayed on the machine.  Players can get points by hitting
+bumpers, moving over rollers, or executing a tricky sequence which gets them
+the jackpot or double jackpot.</p>
+
+<p>Write a function which returns the correct number of points the player has
+earned so far.  The input string, events, consists of characters indicating
+what has happened:</p>
+
+<ul>
+<li>'B' indicates the ball hit a large bumper.  This is worth 1,000 points.</li>
+<li>'b' indicates the ball hit a small bumper.  This is worth 250 points.</li>
+<li>'R' indicates the ball went over a roller.  This is worth a measly 50 points.</li>
+<li>'J' means the player got the jackpot and earns 10,000 points.</li>
+<li>'D' means the player got the double jackpot and gets 20,000 points.</li>
+</ul>
+
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Scoreboard</td></tr><tr><td>Method:</td><td>getScore</td></tr><tr><td>Parameters:</td><td>string</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int getScore(string events)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>64</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>Events will have a length from 0 to 50 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Events will have no characters other than 'B', 'b', 'R', 'J', and 'D'.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;BBB&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3000</pre></td></tr><tr><td><table><tr><td colspan="2">Three large bumpers, at 1000 points each, is worth 3000 points.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;BbRJD&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 31300</pre></td></tr><tr><td><table><tr><td colspan="2">One of each scoring: B = 1000, b = 250, R = 50, J = 10000, D = 20000 => Total = 31300
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>&quot;&quot;</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">Much sadness, as there was no score at all.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
