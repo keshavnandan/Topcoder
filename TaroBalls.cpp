@@ -18,9 +18,8 @@ typedef vector<string> vs;
 class TaroBalls{ 
         public: 
         string getWinner(int R, int B) { 
-          if(R == B) return "Friend";
-          return "Taro";  
-        }
+           
+        } 
         
 // BEGIN CUT HERE
 	public:
