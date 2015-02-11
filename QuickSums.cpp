@@ -1,44 +1,51 @@
-// BEGIN CUT HERE
-
-// END CUT HERE
 #include <iostream>
 #include <sstream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <set>
+#include <map>
+#include <queue>
+#include <cstring>
+#include <climits>
+#include <cstdio>
 using namespace std;
+typedef pair<int,int> pi;
+typedef set<int> si;
+typedef vector<int> vi;
+typedef vector<vi> vvi;
+typedef vector<string> vs;
+int num[15];
+int dp[15][15][105];
+int go(int i, int j, int sum){
+    if(dp[i][j][sum] != -1) return dp[i][j][sum];
+    int mina = 1000000, s = 0;
+    for(int k = i; k <= j; k++) s = (10*s + num[k]);
+    if(s == sum) return 0;
 
- class QuickSums {
-        public:
-        int minSums(string numbers, int sum) {
-            int n = numbers.size();
-            int a0 = (numbers[0]-'0');
-            if(n == 1){
-                if(sum == a0)
-                    return 0;
-                else return -1;
-            }
-            int a1 = (numbers[1]-'0');
-            if(n == 2){
-                if(sum == 10*a0+a1)
-                    return 0;
-                if(sum == a0+a1)
-                   return 1;
-                return -1;
-            }
-            string num1 = numbers.substr(2), num2 = numbers.substr(1);
-            int sum1 = 10*a0+a1, sum2 = a0;
-            int rsum1 = minSums(num1, sum-sum1), rsum2 = minSums(num2, sum-sum2);
-            if(sum1 != 0 && rsum1 != -1) rsum1++;
-            if(sum2 != 0 && rsum2 != -1) rsum2++;
-            if(rsum1 != -1 && rsum2 != -1)
-                return min(rsum1, rsum2);
-            if(rsum1 != -1)
-                return rsum1;
-            if(rsum2 != -1)
-                return rsum2;
-            return -1;
-          }
+    for(int t = 0; t <= sum; t++){
+        for(int k = i; k < j; k++){
+            int a = go(i, k, t) + go(k+1, j, sum-t) + 1;
+            mina = min(mina, a);
+        }
+    }
+    dp[i][j][sum] = mina;
+    return dp[i][j][sum];
+}
 
+class QuickSums{
+        public: 
+        int minSums(string numbers, int sum) { 
+           for(int i = 0; i <= 10; i++)
+            for(int j = 0; j <= 10; j++)
+                for(int k = 0; k <= 100; k++)
+                    dp[i][j][k] = -1;
+           int n = numbers.size();
+           for(int i = 0; i < n; i++) num[i] = (numbers[i]-'0');
+           int val = go(0, n-1, sum);
+           if(val == 1000000) return -1;
+           return val;
+        } 
+        
 // BEGIN CUT HERE
 	public:
 	void run_test(int Case) { if ((Case == -1) || (Case == 0)) test_case_0(); if ((Case == -1) || (Case == 1)) test_case_1(); if ((Case == -1) || (Case == 2)) test_case_2(); if ((Case == -1) || (Case == 3)) test_case_3(); if ((Case == -1) || (Case == 4)) test_case_4(); if ((Case == -1) || (Case == 5)) test_case_5(); }
@@ -53,12 +60,13 @@ using namespace std;
 	void test_case_5() { string Arg0 = "9230560001"; int Arg1 = 71; int Arg2 = 4; verify_case(5, Arg2, minSums(Arg0, Arg1)); }
 
 // END CUT HERE
+ 
+}; 
 
- };
-
-    // BEGIN CUT HERE
+// BEGIN CUT HERE 
 int main(){
-        QuickSums ___test;
-        ___test.run_test(-1);
-}
-    // END CUT HERE
+
+        QuickSums ___test; 
+        ___test.run_test(-1); 
+} 
+// END CUT HERE     
