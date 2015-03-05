@@ -1,0 +1,110 @@
+<html>
+<head>
+    <title>JumpFurther</title>
+</head>
+<body>
+<h1><a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=15699&amp;pm=12300">JumpFurther</a></h1>
+
+<p><em>Single Round Match 587 Round 1 - Division I, Level One</em></p>
+
+<h2>Statement</h2>
+
+<p>Little Fox Jiro is standing at the bottom of a long flight of stairs.
+The bottom of the stairs has number 0, the bottommost step has number 1, the next step has number 2, and so on.
+The staircase is so long that Jiro is guaranteed not to reach its top.</p>
+
+<p>Jiro will now perform <em>N</em> consecutive actions.
+The actions are numbered 1 through <em>N</em>, in order.
+When performing action X, Jiro chooses between two options: either he does nothing, or he jumps exactly X steps up the stairs.
+In other words, if Jiro starts performing action X standing on step Y, he will end it either on step Y, or on step Y+X.</p>
+
+<p>For example, if <em>N</em>=3, Jiro will make three consecutive choices: whether or not to jump 1 step upwards, 2 steps upwards, and then 3 steps upwards.</p>
+
+<p>One of the steps is broken.
+The number of this step is <em>badStep</em>.
+Jiro cannot jump onto this step.</p>
+
+<p>You are given the ints <em>N</em> and <em>badStep</em>.
+Compute and return the number of the topmost step that can be reached by Jiro.</p>
+
+<h2>Definitions</h2>
+
+<ul>
+<li><em>Class</em>: <code>JumpFurther</code></li>
+<li><em>Method</em>: <code>furthest</code></li>
+<li><em>Parameters</em>: <code>int, int</code></li>
+<li><em>Returns</em>: <code>int</code></li>
+<li><em>Method signature</em>: <code>int furthest(int N, int badStep)</code></li>
+</ul>
+
+
+<h2>Constraints</h2>
+
+<ul>
+<li><em>N</em> will be between 1 and 2,000, inclusive.</li>
+<li><em>badStep</em> will be between 1 and 4,000,000, inclusive.</li>
+</ul>
+
+
+<h2>Examples</h2>
+
+<h3>Example 1</h3>
+
+<h4>Input</h4>
+
+<p><c>2,<br />2</c></p>
+
+<h4>Output</h4>
+
+<p><c>3</c></p>
+
+<h4>Reason</h4>
+
+<p>The optimal strategy is to jump upwards twice: from step 0 to step 1, and then from step 1 to step 3. This trajectory avoids the broken step.</p>
+
+<h3>Example 2</h3>
+
+<h4>Input</h4>
+
+<p><c>2,<br />1</c></p>
+
+<h4>Output</h4>
+
+<p><c>2</c></p>
+
+<h4>Reason</h4>
+
+<p>In this case step 1 is broken, so Jiro cannot jump upwards as his first action. The optimal strategy is to first stay on step 0, and then to jump from step 0 to step 2.</p>
+
+<h3>Example 3</h3>
+
+<h4>Input</h4>
+
+<p><c>3,<br />3</c></p>
+
+<h4>Output</h4>
+
+<p><c>5</c></p>
+
+<h3>Example 4</h3>
+
+<h4>Input</h4>
+
+<p><c>1313,<br />5858</c></p>
+
+<h4>Output</h4>
+
+<p><c>862641</c></p>
+
+<h3>Example 5</h3>
+
+<h4>Input</h4>
+
+<p><c>1,<br />757065</c></p>
+
+<h4>Output</h4>
+
+<p><c>1</c></p>
+
+</body>
+</html>
