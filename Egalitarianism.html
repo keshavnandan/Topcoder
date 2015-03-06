@@ -1,0 +1,126 @@
+<html>
+<head>
+    <title>Egalitarianism</title>
+</head>
+<body>
+<h1><a href="http://community.topcoder.com/tc?module=ProblemDetail&amp;rd=15696&amp;pm=12613">Egalitarianism</a></h1>
+
+<p><em>Single Round Match 584 Round 1 - Division I, Level One</em></p>
+
+<h2>Statement</h2>
+
+<p>A kingdom has n citizens. Each one has some amount of money, a number of dollars denoted by a non-negative integer.</p>
+
+<p>Citizens are numbered from 0 to n-1. Some citizens have friends. Their friendship network is described by a String[] called <em>isFriend</em>, such that if <em>isFriend</em>[i][j] == 'Y', the citizens numbered i and j are friends, and if <em>isFriend</em>[i][j] == 'N', these citizens are not friends.</p>
+
+<p>The king decrees the following:</p>
+
+<p>Each citizen's amount of money must be within <em>d</em> dollars of the amount of money belonging to any of his friends. In other words, a citizen with x dollars must not have any friends with less than x-<em>d</em> dollars or more than x+<em>d</em> dollars.</p>
+
+<p>Given the number of citizens and their friendship network, what is the greatest possible money difference between any two people (not necessarily friends) in this kingdom? If there is a finite answer, return it. Otherwise, return -1.</p>
+
+<h2>Definitions</h2>
+
+<ul>
+<li><em>Class</em>: <code>Egalitarianism</code></li>
+<li><em>Method</em>: <code>maxDifference</code></li>
+<li><em>Parameters</em>: <code>String[], int</code></li>
+<li><em>Returns</em>: <code>int</code></li>
+<li><em>Method signature</em>: <code>int maxDifference(String[] isFriend, int d)</code></li>
+</ul>
+
+
+<h2>Constraints</h2>
+
+<ul>
+<li>n will be between 2 and 50, inclusive.</li>
+<li><em>d</em> will be between 0 and 1,000, inclusive.</li>
+<li><em>isFriend</em> will contain exactly n elements.</li>
+<li>Each element of <em>isFriend</em> will contain exactly n characters, each of which is either 'Y' or 'N'.</li>
+<li>For any i, <em>isFriend</em>[i][i] = 'N'.</li>
+<li>For any i and j, <em>isFriend</em>[i][j] = <em>isFriend</em>[j][i].</li>
+</ul>
+
+
+<h2>Examples</h2>
+
+<h3>Example 1</h3>
+
+<h4>Input</h4>
+
+<p><c>["NYN",<br /> "YNY",<br /> "NYN"],<br />10</c></p>
+
+<h4>Output</h4>
+
+<p><c>20</c></p>
+
+<h4>Reason</h4>
+
+<p>The kingdom has three citizens. Citizens 0 and 1 are friends. Also, citizens 1 and 2 are friends. The greatest possible money difference between any two citizens is $20, as in the following configuration: citizen 0 has $100; citizen 1 has $110; citizen 2 has $120.</p>
+
+<h3>Example 2</h3>
+
+<h4>Input</h4>
+
+<p><c>["NN",<br /> "NN"],<br />1</c></p>
+
+<h4>Output</h4>
+
+<p><c>-1</c></p>
+
+<h4>Reason</h4>
+
+<p>Since citizens 0 and 1 are not friends, there are no constraints between them.</p>
+
+<h3>Example 3</h3>
+
+<h4>Input</h4>
+
+<p><c>["NNYNNN",<br /> "NNYNNN",<br /> "YYNYNN",<br /> "NNYNYY",<br /> "NNNYNN",<br /> "NNNYNN"],<br />1000</c></p>
+
+<h4>Output</h4>
+
+<p><c>3000</c></p>
+
+<h3>Example 4</h3>
+
+<h4>Input</h4>
+
+<p><c>["NNYN",<br /> "NNNY",<br /> "YNNN",<br /> "NYNN"],<br />584</c></p>
+
+<h4>Output</h4>
+
+<p><c>-1</c></p>
+
+<h3>Example 5</h3>
+
+<h4>Input</h4>
+
+<p><c>["NYNYYYN",<br /> "YNNYYYN",<br /> "NNNNYNN",<br /> "YYNNYYN",<br /> "YYYYNNN",<br /> "YYNYNNY",<br /> "NNNNNYN"],<br />5</c></p>
+
+<h4>Output</h4>
+
+<p><c>20</c></p>
+
+<h3>Example 6</h3>
+
+<h4>Input</h4>
+
+<p><c>["NYYNNNNYYYYNNNN",<br /> "YNNNYNNNNNNYYNN",<br /> "YNNYNYNNNNYNNNN",<br /> "NNYNNYNNNNNNNNN",<br /> "NYNNNNYNNYNNNNN",<br /> "NNYYNNYNNYNNNYN",<br /> "NNNNYYNNYNNNNNN",<br /> "YNNNNNNNNNYNNNN",<br /> "YNNNNNYNNNNNYNN",<br /> "YNNNYYNNNNNNNNY",<br /> "YNYNNNNYNNNNNNN",<br /> "NYNNNNNNNNNNNNY",<br /> "NYNNNNNNYNNNNYN",<br /> "NNNNNYNNNNNNYNN",<br /> "NNNNNNNNNYNYNNN"],<br />747</c></p>
+
+<h4>Output</h4>
+
+<p><c>2988</c></p>
+
+<h3>Example 7</h3>
+
+<h4>Input</h4>
+
+<p><c>["NY",<br /> "YN"],<br />0</c></p>
+
+<h4>Output</h4>
+
+<p><c>0</c></p>
+
+</body>
+</html>
