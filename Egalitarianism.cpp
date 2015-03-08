@@ -2,46 +2,35 @@
 #include <string>
 #include <numeric>
 #include <queue>
+#define inf 10000000
 using namespace std;
-vector<string> M;
-int visited[55], n;
+int D[55][55];
+
 
 class Egalitarianism {
 
-    int bfs(int s){
-
-      queue<pair<int, int> > Q;
-      Q.push(make_pair(s, 0));
-      int maxl = 0;
-
-      while(!Q.empty()){
-        pair<int, int> p = Q.front();
-        Q.pop();
-        int i = p.first, l = p.second;
-        maxl = max(l, maxl);
-        for(int j = 0; j < n; j++)
-          if(!visited[j] && M[i][j] == 'Y'){
-            visited[j] = 1;
-            Q.push(make_pair(j, l+1));
-          }
-      }
-      return maxl;
-    }
-
 public:
-    int maxDifference(vector<string> const &isFriend,
+    int maxDifference(vector<string> const M,
                       int d) {
-        M = isFriend;
-        n = M.size();
+        int n = M.size();
+        // memset(D, 0, sizeof(D));
+        for(int i = 0; i < n; i++)
+          for(int j = 0; j < n; j++)
+            if(i == j) D[i][j] = 0;
+            else D[i][j] = (M[i][j] == 'Y' ? 1 : inf);
+
+        for(int k = 0; k < n; k++)
+          for(int i = 0; i < n; i++)
+            for(int j = 0; j < n; j++)
+              D[i][j] = min(D[i][j], D[i][k] + D[k][j]);
+
         int maxv = 0;
-        for(int i = 0; i < n; i++){
-           fill(visited, visited+50, 0);
-           visited[i] = 1;
-           maxv = max(maxv, bfs(i));
-           int count = accumulate(visited, visited+n, 0);
-           if(count < n) return -1;
-         }
-        if(maxv == 0) return -1;
+        for(int i = 0; i < n; i++)
+          for(int j = 0; j < n; j++)
+            maxv = max(maxv, D[i][j]);
+
+        cout<<"maxv = "<<maxv<<endl;
+        if(maxv == inf) return -1;
         return maxv*d;
     }
 };
