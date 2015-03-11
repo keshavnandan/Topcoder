@@ -35,23 +35,14 @@ class EelAndRabbit{
         public: 
         int getmax(vector <int> l, vector <int> t){
             int n = l.size();
-            if(n == 1) return 1;
-            si time;
-            fi(n){
-                time.insert(t[i]);
-                time.insert(t[i] + l[i]);
-            }
             int maxr = 0;
-            for(int a : time)
-                for(int b : time){
-                    if(a == b) continue;
-                    si v;
-                    fi(n){
-                        if(t[i] <= a && a <= t[i]+l[i]) v.insert(i);
-                        if(t[i] <= b && b <= t[i]+l[i]) v.insert(i);
-                    }
-                    maxr = max(maxr, (int)v.size());
+            fi(n) fj(n) {
+                int r = 0;
+                fk(n){
+                  if((t[k] <= t[i] && t[i] <= t[k] + l[k]) || (t[k] <= t[j] && t[j] <= t[k] + l[k])) r++;
                 }
+                maxr = max(maxr, r);
+            }
             return maxr;
         }
         
