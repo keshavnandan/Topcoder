@@ -1,0 +1,32 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td>Bob is using a peculiar text editor to write a sequence of lines of text.
+The editor consists of three parts: a results window, a text buffer and an undo history.
+More details about the three parts follow.
+<ul>
+<li>The results window contains a sequence of strings: the lines of text you already wrote. Initially, the results window is empty.</li>
+<li>The text buffer contains a string: the line you are writing at the moment. Initially, the string in the text buffer is empty.</li>
+<li>The undo history contains a sequence of strings: all the past states of the text buffer. Initially, the undo history contains a single element: an empty string.</li>
+</ul>
+
+You are given a vector &lt;string&gt; <b>lines</b>.
+Bob would like to print the contents of <b>lines</b> into the results window.
+(At the end, the sequence of strings stored in the results window must be precisely equal to <b>lines</b>. Order of elements matters.)
+Additionally, Bob would like to do so as quickly as possible.
+He is able to take the following actions:
+
+<ul>
+<li>Bob may type a lowercase letter. The letter is appended to the text buffer. The new text buffer is then added as a new element of the undo history. (For example, if the text buffer currently contains "do", then pressing 'g' changes the text buffer to "dog" and then stores "dog" into the undo history.)</li>
+<li>Bob may press Enter. When he does so, the current content of the text buffer is printed to the results window as a new line, after the lines that were printed earlier. The text buffer remains unmodified. (For example, if the text buffer contains "dog" and Bob presses Enter, "dog" will be appended to the results window, and the results buffer still contains "dog".)</li>
+<li>Bob may use two mouse clicks to restore any entry from the undo history to the text buffer. This operation does not modify the undo history.</li>
+</ul>
+
+Return the minimum total number of button presses (keyboard and mouse) that Bob needs to print all the given lines into the results window.</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>UndoHistory</td></tr><tr><td>Method:</td><td>minPresses</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int minPresses(vector &lt;string&gt; lines)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>64</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>lines</b> will contain between 1 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>lines</b> will contain between 1 and 50 characters, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>lines</b> will contain only lowercase letters ('a'-'z').</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;tomorrow&quot;, &quot;topcoder&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 18</pre></td></tr><tr><td><table><tr><td colspan="2"><ul>
+<li>Type 't'. The text buffer now contains "t", and the undo history now contains "" and "t".</li>
+<li>Type 'o'. The text buffer now contains "to", and the undo history now contains "", "t", and "to".</li>
+<li>Using six more keypresses, type the letters in "morrow". The text buffer now contains "tomorrow" and the undo history contains all prefixes of "tomorrow". The results window is still empty.</li>
+<li>Press Enter. The results window now contains one string: "tomorrow".</li>
+<li>Click the mouse twice to restore "to" from undo history.</li>
+<li>Using another six keypresses, type the letters in "pcoder".</li>
+<li>Press Enter. The results window now contains "tomorrow" and "topcoder", in this order, and we are done.</li>
+</ul>
+The total number of button presses was 8 (typing "tomorrow") + 1 (Enter) + 2 (mouse) + 6 (typing "pcoder") + 1 (Enter) = 18.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;a&quot;,&quot;b&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2">After typing "a" and pressing enter, we need to restore the empty string (which is always present at the top of the undo buffer) before typing "b".</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;a&quot;, &quot;ab&quot;, &quot;abac&quot;, &quot;abacus&quot; }</pre></td></tr></table></td></tr><tr><td><pre>Returns: 10</pre></td></tr><tr><td><table><tr><td colspan="2">There are times when it is not necessary to use the undo history at all.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;pyramid&quot;, &quot;sphinx&quot;, &quot;sphere&quot;, &quot;python&quot;, &quot;serpent&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 39</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;ba&quot;,&quot;a&quot;,&quot;a&quot;,&quot;b&quot;,&quot;ba&quot;}
+</pre></td></tr></table></td></tr><tr><td><pre>Returns: 13</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
