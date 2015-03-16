@@ -33,45 +33,23 @@ typedef long long ll;
 
 class UndoHistory{ 
         public:
-        string longestPrefix(string s, set<string> S){
-            string maxs;
-            for(string t : S)
-                if(isPrefix(s, t) && t.size() > maxs.size()) maxs = t;
-            return maxs;
-        }
-        //Returns true if t is substring of s
-        bool isPrefix(string s, string t){
-            int k = t.size();
-            return k <= s.size() && s.substr(0, k) == t;
-        }
         int minPresses(vector <string> lines){ 
             string line, buffer;
-            set<string> undo;
-            int i = 0, n = lines.size(), strokes = 1;
-            buffer.push_back(lines[0][0]);
-            undo.insert(buffer);
+            int i = 0, n = lines.size(), strokes = lines[0].size() + 1;
+            ri(1, n){
+                int a = lines[i].size(), b = lines[i-1].size();
+                int mincost = a+3;
+                if(a >= b && lines[i].substr(0, b) == lines[i-1]) mincost = min(mincost, 1+a-b);
             
-            while(i < n){
-                string line = lines[i];
-                // cout<<"buffer = "<<buffer<<" strokes = "<<strokes<<endl;
-                if(buffer == line){
-                    strokes++;
-                    i++;
-                }
-                else {
-                    string t = longestPrefix(line, undo);
-                    if(isPrefix(line, buffer) && t.size() <= buffer.size()+2){
-                        int m = buffer.size();
-                        buffer.push_back(line[m]);
-                        strokes++;
+                fj(i){
+                    string l = lines[j], L = lines[i];
+                    int a = l.size(), b = L.size();
+                    rke(1, min(a, b)){
+                        if(L.substr(0, k) != l.substr(0, k)) break;
+                        mincost = min(mincost, b-k+3);
                     }
-                    else{
-                        buffer = t;
-                        strokes += 2;
-                    }
-                    undo.insert(buffer);
-                    // cout<<"buffer = "<<buffer<<" line = "<<line<<endl;
                 }
+                strokes += mincost;
             }
             return strokes;
         }
