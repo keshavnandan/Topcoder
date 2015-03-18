@@ -32,31 +32,28 @@ typedef long long ll;
 #define fke(b) for(int k=0; k < ((int)(b)); k++)                      // k -> [0, b]
 #define fle(b) for(int l=0; l <= ((int)(b)); l++)                        // l -> [0, b]
 #define pb push_back
-
+#define inf 1000000000
+ 
 class BallsSeparating{
  
         public: 
-        int minOperations(vector <int> red, vector <int> green, vector <int> blue){ 
-            int n = red.size();
+        int minOperations(vi r, vi g, vi b){ 
+            int n = r.size();
             if(n < 3) return -1;
-            int sum = 0, s = 0;
-            fi(n) sum += red[i] + green[i] + blue[i];
-
-            fi(n) fj(n) fk(n) {
-                if(i == j || j == k || k == i) continue;
-                vi v;
-                v.pb(red[i]);
-                v.pb(green[j]);
-                v.pb(blue[k]);
-
-                for(int t = 0; t < n; t++){
-                    if(t == i || t == j || t == k) continue;
-                    int mx = max(red[t], max(blue[t], green[t]));
-                    v.pb(mx);
+            int dp[10];
+            fj(10) dp[j] = inf;
+            dp[0] = 0;
+            fi(n){ 
+                int t[10];
+                fk(10) t[k] = inf;
+                fj(8){
+                    t[j|1] = min(t[j|1], dp[j] + b[i] + g[i]);
+                    t[j|2] = min(t[j|2], dp[j] + r[i] + b[i]);
+                    t[j|4] = min(t[j|4], dp[j] + g[i] + r[i]);
                 }
-                s = max(s, accumulate(v.begin(), v.end(), 0));
+                fk(8) dp[k] = t[k];
             }
-            return sum - s;
+            return dp[7];
         }
         
 // BEGIN CUT HERE
