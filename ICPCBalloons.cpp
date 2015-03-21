@@ -43,19 +43,9 @@ class ICPCBalloons {
         int total = accumulate(v.begin(), v.end(), 0), bal = accumulate(s.begin(), s.end(), 0), due = 0;
         if(bal < total) return inf;
         fi(min(m, n)){
-            if(s[i] >= v[i]){
-                bal -= v[i];
-            }
-            else {
-                bal -= s[i];
-                due += v[i] - s[i];
-            }
+            total -= min(v[i], s[i]);
         }
-        if(n < m){
-            ri(n, m) due += v[i];
-        }
-        if(bal < due) return inf;
-        return due;
+        return total;
     }
     int minRepaintings(vector <int> balloonCount, string balloonSize, vector <int> maxAccepted) {
         vi M, L;
