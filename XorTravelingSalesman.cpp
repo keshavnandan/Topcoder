@@ -31,39 +31,28 @@ typedef long long ll;
 #define fk(b) for(int k=0; k < ((int)(b)); k++)                        // k -> [0, b)
 #define fke(b) for(int k=0; k < ((int)(b)); k++)                      // k -> [0, b]
 #define fle(b) for(int l=0; l <= ((int)(b)); l++)                        // l -> [0, b]
-int n;
-vi visited(55, 0);
-vs M;
-void dfs(int s){
-    fi(n){
-        if(M[s][i] == 'Y' && !visited[i]){
-            visited[i] = 1;
-            dfs(i);
-        }
-    }
-}
 
 class XorTravelingSalesman{
  
         public: 
         int maxProfit(vector <int> cityValues, vector <string> roads){ 
             
-            M = roads;
-
-            bool dp[1050] = {0};
-            n = cityValues.size();
-            int ret = 0;
-            visited[0] = 1;
-            dfs(0);
-
-            fj(n){
-                if(visited[j] == 0) continue;
-                int c = cityValues[j];
-                dp[c] = 1;
-                fi(1024){
-                    int k = (i^c);
-                    dp[k] |= dp[i];
-                    if(dp[k]) ret = max(ret, k);
+            int n = cityValues.size(), ret = 0;
+            int visited[55][1050];
+            visited[0][cityValues[0]] = 1;
+            queue<pi> Q;
+            Q.push(mp(0, cityValues[0]));
+            while(!Q.empty()){
+                pi p = Q.front();
+                Q.pop();
+                int i = p.first, r = p.second;
+                ret = max(ret, r);
+                fj(n){
+                    if(roads[i][j] == 'N') continue;
+                    int k = r^cityValues[j];
+                    if(visited[j][k]) continue;
+                    visited[j][k] = 1;
+                    Q.push(mp(j, k));
                 }
             }
             return ret;
