@@ -1,0 +1,83 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><i>Warning: This problem statement contains superscripts and/or subscripts. It may not display properly outside of the applet.</i>
+<br></br><br></br>
+You are playing a video game similar to the famous traveling salesman problem. In this game, you travel between cities and collect profits according to some rules explained in the next paragraphs. Unlike the traditional traveling salesman problem, it is allowed to visit each of the cities multiple times.
+<br></br><br></br>
+There are N cities numbered 0 through N-1. Each city has an associated value. The values are given in vector &lt;int&gt; <b>cityValues</b>, where <b>cityValues</b>[i] is the value of city i.
+<br></br><br></br>
+There are also zero or more bidirectional roads connecting the cities. Each road connects exactly two different cities and can be traversed in both ways. The information about the roads is given in vector &lt;string&gt; <b>roads</b>. The j-th character of the i-th element of <b>roads</b> will be 'N' if there is no road connecting city i and city j, or 'Y' if there is exactly one road connecting city i and city j.
+<br></br><br></br>
+In this game, you start at city 0 with profit <b>cityValues</b>[0]. Your goal is to maximize your final profit. At any time in the game, you may perform one of the following actions:
+<br></br><br></br>
+<ul>
+<li>End the game. Your current profit will be recorded as your final profit.</li>
+<li>Move to another city by traversing a single road. This is the interesting part of the game: assume that your current profit is P and the destination city is city X. After traversing the road, you will be at city X with profit P XOR <b>cityValues</b>[X].</li>
+</ul>
+<br></br>
+You are given the vector &lt;int&gt; <b>cityValues</b> and the vector &lt;string&gt; <b>roads</b>. Return the maximum possible final profit you can achieve in this game.</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>XorTravelingSalesman</td></tr><tr><td>Method:</td><td>maxProfit</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;, vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int maxProfit(vector &lt;int&gt; cityValues, vector &lt;string&gt; roads)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>64</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>If a and b are single bits then a XOR b is defined as (a + b) modulo 2. For two integers, A and B, in order to calculate A XOR B, they need to be represented in binary: A = (a<sub>n</sub>...a<sub>1</sub>)<sub>2</sub>, B = (b<sub>n</sub>...b<sub>1</sub>)<sub>2</sub> (if the lengths of their representations are different, the shorter one is prepended with the necessary number of leading zeroes). Then A XOR B = C = (c<sub>n</sub>...c<sub>1</sub>)<sub>2</sub>, where c<sub>i</sub> = a<sub>i</sub> XOR b<sub>i</sub>. For example, 10 XOR 3 = (1010)<sub>2</sub> XOR (0011)<sub>2</sub> = (1001)<sub>2</sub> = 9.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>cityValues</b> will contain between 1 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>cityValues</b> will be between 0 and 1023, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>roads</b> will contain exactly N elements, where N is the number of elements of <b>cityValues</b>.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>roads</b> will contain exactly N characters, where N is the number of elements of <b>cityValues</b>.</td></tr><tr><td align="center" valign="top">-</td><td>Each character in <b>roads</b> will be either 'N' or 'Y'.</td></tr><tr><td align="center" valign="top">-</td><td>For each i, the i-th character of the i-th element of <b>roads</b> will be 'N'.</td></tr><tr><td align="center" valign="top">-</td><td>For each pair (i, j), the j-th character of the i-th element of <b>roads</b> will be equal to the i-th character of the j-th element of <b>roads</b>.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 7, 11, 5, 2}</pre></td></tr><tr><td><pre>{&quot;NYNYY&quot;,
+ &quot;YNYNN&quot;,
+ &quot;NYNNN&quot;,
+ &quot;YNNNN&quot;,
+ &quot;YNNNN&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 14</pre></td></tr><tr><td><table><tr><td colspan="2">One possible solution:
+<ul>
+<li>Start at city 0. Profit = <b>cityValues</b>[0] = 0.</li>
+<li>Move to city 1. Profit = 0 XOR 7 = 7.</li>
+<li>Move to city 2. Profit = 7 XOR 11 = 12.</li>
+<li>Move to city 1. Profit = 12 XOR 7 = 11.</li>
+<li>Move to city 0. Profit = 11 XOR 0 = 11.</li>
+<li>Move to city 3. Profit = 11 XOR 5 = 14.</li>
+<li>End the game.</li>
+</ul></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{556}</pre></td></tr><tr><td><pre>{&quot;N&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 556</pre></td></tr><tr><td><table><tr><td colspan="2">You cannot move anywhere.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 4, 8, 32, 512}</pre></td></tr><tr><td><pre>{&quot;NYYYY&quot;,
+ &quot;YNNNN&quot;,
+ &quot;YNNNN&quot;,
+ &quot;YNNNN&quot;,
+ &quot;YNNNN&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 556</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{37, 1, 19, 64, 42, 41, 64, 64, 54, 16, 256, 36, 64, 2, 4, 2, 62, 29, 58, 64, 1, 32, 16,
+ 256, 17, 2, 17, 4, 1, 64, 21, 8, 256, 63, 3, 1, 43, 15, 8, 39, 41, 8, 16, 8, 16, 256, 64, 512, 45, 64}</pre></td></tr><tr><td><pre>{&quot;NNNNNNYYYYNNNNNNNNNNNNNNNNNNNNNNNNNYNNNNNNNNNNNNNN&quot;,
+ &quot;NNNNNNNNNNNNNNNNYNNNNNNNYNNNNNNNNNNNNNNNNYYNNNYYNN&quot;,
+ &quot;NNNNNYYNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN&quot;,
+ &quot;NNNNNNNYNNNNNNNNNNYNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN&quot;,
+ &quot;NNNNNNNNNNNNNNNYNNYNYNNNNNNYNNNNNNNNNNYNNNNNNNNNNN&quot;,
+ &quot;NNYNNNYNNNNNNNNYNNYNNNYYNNNYNYNNNNYNNNNNNNNYNNNNNN&quot;,
+ &quot;YNYNNYNYNNNNNNNYNNNNNNNNNNNNNNNNNNNYNNNNNNNNYNNYNN&quot;,
+ &quot;YNNYNNYNYNYYNNNNNNNNNNNNNNNNNNNNNNYNNYNNNNNNNNNNNN&quot;,
+ &quot;YNNNNNNYNNNNNNNNNNNNNNYNYNNNNNNNNNNYYYNNNNNNNYNNNY&quot;,
+ &quot;YNNNNNNNNNNNNNNNNYNYNYNYYNNNYNNNNYNNNNNNNNNNNNNNNY&quot;,
+ &quot;NNNNNNNYNNNNYNNNNNNNNYYNNNYYNNNNYNYYNNNNNNNNNNNNNN&quot;,
+ &quot;NNNNNNNYNNNNNNYNNNNYYNNNYNNYYNNNNNNNNNNNNNYNYNNNNN&quot;,
+ &quot;NNNNNNNNNNYNNNNNYNNNNYNNNNNNNNNNYNYNNYNYNNNYNYNNNN&quot;,
+ &quot;NNNNNNNNNNNNNNNYNNNNNNNNNYNNNNNNNNNNNNYNNNNNNNNYNN&quot;,
+ &quot;NNNNNNNNNNNYNNNNNYNYNNYYNNNNNYNNNNNNNNNYNNYNNYNNNN&quot;,
+ &quot;NNNNYYYNNNNNNYNNNYYNNYNNNYNYYNNNNNNNNNYYYNNYNNYNYN&quot;,
+ &quot;NYNNNNNNNNNNYNNNNNNNYNNNYYNNNYNNNNYNNNNNNNNNNNNNNN&quot;,
+ &quot;NNNNNNNNNYNNNNYYNNNNNNYNNNYNNNNNYNNYNYYNNNNYNNNYNN&quot;,
+ &quot;NNNYYYNNNNNNNNNYNNNNNYNYNYNNNNNNNNYNNNNNNNNNNNNNNN&quot;,
+ &quot;NNNNNNNNNYNYNNYNNNNNNYNYYYNNNNNNNNNNNYNNYNNNNNYNNN&quot;,
+ &quot;NNNNYNNNNNNYNNNNYNNNNYNNNYYNNNYNNNYNNNNNNNNNNYNYNY&quot;,
+ &quot;NNNNNNNNNYYNYNNYNNYYYNYNNNNNNNNYNYNNNNNNNNNNYNNNNN&quot;,
+ &quot;NNNNNYNNYNYNNNYNNYNNNYNNNNNNNNNNNYNNYNYNNYNNNNNNNN&quot;,
+ &quot;NNNNNYNNNYNNNNYNNNYYNNNNNNNNNNNNNNNNNNNNNNYNNNYNNN&quot;,
+ &quot;NYNNNNNNYYNYNNNNYNNYNNNNNNNNNNYNNNNNNYNNNYNNYNNNNN&quot;,
+ &quot;NNNNNNNNNNNNNYNYYNYYYNNNNNNYNNNNNNNNNNNYYNNNNNNNYN&quot;,
+ &quot;NNNNNNNNNNYNNNNNNYNNYNNNNNNNNYNNNNYNNNNNNYYNNNNYNN&quot;,
+ &quot;NNNNYYNNNNYYNNNYNNNNNNNNNYNNNYYNYNNNNNNNNNNNNNNNNN&quot;,
+ &quot;NNNNNNNNNYNYNNNYNNNNNNNNNNNNNYNNNNYNNNNNNNNYNNYNYN&quot;,
+ &quot;NNNNNYNNNNNNNNYNYNNNNNNNNNYYYNNNNNNNNYNNNNYNNNNNNN&quot;,
+ &quot;NNNNNNNNNNNNNNNNNNNNYNNNYNNYNNNNNYNNNNNNNNNNNNNNNY&quot;,
+ &quot;NNNNNNNNNNNNNNNNNNNNNYNNNNNNNNNNYNNNNNNNNNYNNNNNNN&quot;,
+ &quot;NNNNNNNNNNYNYNNNNYNNNNNNNNNYNNNYNNNYYNNNNNYNNNYNNN&quot;,
+ &quot;NNNNNNNNNYNNNNNNNNNNNYYNNNNNNNYNNNNNNNYNNYNNNNNNNN&quot;,
+ &quot;NNNNNYNYNNYNYNNNYNYNYNNNNNYNYNNNNNNYYNYNYNYNNNNNYN&quot;,
+ &quot;YNNNNNYNYNYNNNNNNYNNNNNNNNNNNNNNYNYNNNNNYNNYNNNYNN&quot;,
+ &quot;NNNNNNNNYNNNNNNNNNNNNNYNNNNNNNNNYNYNNNNNNYNNNNNNYN&quot;,
+ &quot;NNNNNNNYYNNNYNNNNYNYNNNNYNNNNYNNNNNNNNNNNYNNNNYNNN&quot;,
+ &quot;NNNNYNNNNNNNNYNYNYNNNNYNNNNNNNNNNYYNNNNYNNNNNNNNNY&quot;,
+ &quot;NNNNNNNNNNNNYNYYNNNNNNNNNYNNNNNNNNNNNNYNNNNNYNYYNN&quot;,
+ &quot;NNNNNNNNNNNNNNNYNNNYNNNNNYNNNNNNNNYYNNNNNNNNNNNNNN&quot;,
+ &quot;NYNNNNNNNNNNNNNNNNNNNNYNYNYNNNNNNYNNYYNNNNNNNNNNNN&quot;,
+ &quot;NYNNNNNNNNNYNNYNNNNNNNNYNNYNNYNYYNYNNNNNNNNNYNNNNN&quot;,
+ &quot;NNNNNYNNNNNNYNNYNYNNNNNNNNNNYNNNNNNYNNNNNNNNNNNNNY&quot;,
+ &quot;NNNNNNYNNNNYNNNNNNNNNYNNYNNNNNNNNNNNNNNYNNYNNYNNNY&quot;,
+ &quot;NNNNNNNNYNNNYNYNNNNNYNNNNNNNNNNNNNNNNNNNNNNNYNNNNN&quot;,
+ &quot;NYNNNNNNNNNNNNNYNNNYNNNYNNNNYNNNYNNNNYNYNNNNNNNNNN&quot;,
+ &quot;NYNNNNYNNNNNNYNNNYNNYNNNNNYNNNNNNNNYNNNYNNNNNNNNNN&quot;,
+ &quot;NNNNNNNNNNNNNNNYNNNNNNNNNYNNYNNNNNYNYNNNNNNNNNNNNN&quot;,
+ &quot;NNNNNNNNYYNNNNNNNNNNYNNNNNNNNNYNNNNNNNYNNNNYYNNNNN&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 895</pre></td></tr><tr><td><table><tr><td colspan="2">A huge random case.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
