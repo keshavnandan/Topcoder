@@ -33,18 +33,12 @@ typedef long long ll;
 #define fle(b) for(int l=0; l <= ((int)(b)); l++)                        // l -> [0, b]
 
 class CuttingBitString{
-    bool isPower(ll s){
-        if(s == 1) return true;
-        if(s == 0) return false;
-        return s%5 == 0 && isPower(s/5);
-    }
+
     bool isPower(string s){
-        int i = 0;
         if(s[0] == '0') return false;
         ll a = stoll(s, NULL, 2);
-        if(a == 1) return true;
-        if(a == 0) return false;
-        return a%5 == 0 && isPower(a/5);
+        while(a % 5 == 0) a = a/5;
+        return a == 1;
     }
 
     public: 
