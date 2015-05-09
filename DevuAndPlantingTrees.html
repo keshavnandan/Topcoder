@@ -1,0 +1,26 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Devu has a garden in his back yard.
+The garden can be seen as a grid with 2 rows and N columns.
+You are given a description of the garden: a vector &lt;string&gt; <b>garden</b> with 2 elements, each containing N characters.
+The character '.' represents an empty grid cell, and the character '*' a cell that contains a tree.
+</p>
+
+<p></p>
+
+<p>
+Two cells are considered adjacent if they share a side or a corner.
+As you may know, whenever two trees grow in adjacent cells, they hinder each other's growth.
+Therefore, Devu would never plant a tree into a cell that is already adjacent to a cell with a tree.
+(This is also true for all the trees already present in his garden.)
+</p>
+
+<p></p>
+
+<p>
+Given the above rule, Devu wants to plant as many additional trees as possible.
+Return the largest possible number of trees Devu can have in his garden at the end.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>DevuAndPlantingTrees</td></tr><tr><td>Method:</td><td>maximumTreesDevuCanGrow</td></tr><tr><td>Parameters:</td><td>vector &lt;string&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int maximumTreesDevuCanGrow(vector &lt;string&gt; garden)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td>N will be between 1 and 50, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>garden</b> will contain exactly 2 elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>garden</b> will contain exactly N characters.</td></tr><tr><td align="center" valign="top">-</td><td>Each character of each element of <b>garden</b> will be either '.' or '*'.</td></tr><tr><td align="center" valign="top">-</td><td>No two of the already planted trees are in adjacent cells.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;..&quot;, &quot;..&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">You can plant a single tree in either of the four available cells.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;..&quot;, &quot;.*&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">You cannot plant any additional trees.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;...&quot;,
+&quot;..*&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">The garden already contains one tree in a corner. One optimal solution is to plant one additional tree in the opposite corner.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.....*..........&quot;,
+&quot;.*.......*.*..*.&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 7</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;....*.*.*...........*........&quot;,
+&quot;*..........*..*.*.*....*...*.&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 13</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{&quot;.....*..*..........*............................*&quot;,
+&quot;*..*.............*...*.*.*.*..*.....*.*...*...*..&quot;}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 23</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
