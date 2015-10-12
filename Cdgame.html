@@ -1,0 +1,30 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>Two players are playing a cooperative game.</p>
+<p>At the beginning of the game each player has some cards.
+There is a positive integer written on each card.</p>
+<p>The game is played as follows:</p>
+<ol>
+<li>Each player chooses one of their cards.</li>
+<li>At the same time, each player gives the chosen card to the other player.</li>
+<li>Each player computes the sum of the numbers on the cards they now have.</li>
+<li>The final outcome of the game is the product of the two sums the players computed in the previous step.</li>
+</ol>
+
+<p>You are given the vector &lt;int&gt;s <b>a</b> and <b>b</b>.
+The elements of <b>a</b> are the numbers on the first player's cards at the beginning of the game.
+The elements of <b>b</b> are the numbers on the second player's cards.</p>
+<p>Compute and return the number of <i>different</i> outcomes the game may have.</p>
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Cdgame</td></tr><tr><td>Method:</td><td>rescount</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;, vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int rescount(vector &lt;int&gt; a, vector &lt;int&gt; b)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>A</b> and <b>B</b> will contain between 1 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>A</b> and <b>B</b> will contain the same number of elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element in <b>A</b> and <b>B</b> will be between 1 and 100, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1,2}</pre></td></tr><tr><td><pre>{3,4}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">This game can be played in four possible ways.
+One of them looks as follows:
+<ol>
+<li>The first player chooses the card with the number 1. At the same time, the second player chooses the card with the number 3.</li>
+<li>Each player gives the chosen card to the other player. After the exchange the first player has the cards with numbers 2 and 3, and the second player has the cards with numbers 1 and 4.</li>
+<li>The first player computes that his sum is 2+3 = 5. The second player computes that her sum is 1+4 = 5.</li>
+<li>The final outcome is the value 5*5 = 25.</li>
+</ol>
+The other three ways correspond to the following outcomes: (2+4)*(1+3) = 6*4 = 24, (1+3)*(2+4) = 4*6 = 24, and (1+4)*(2+3) = 5*5 = 25.
+Hence, only two <i>different</i> outcomes are possible: 24 and 25.
+Thus, the correct return value is 2.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1,2,4}</pre></td></tr><tr><td><pre>{8,16,32}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 9</pre></td></tr><tr><td><table><tr><td colspan="2">With three cards in each player's hand there are 9 ways to play the game.
+In this case each of those ways leads to a different outcome.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1,1,1}</pre></td></tr><tr><td><pre>{1,1,1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">Again, there are 9 ways to play the game, but obviously in this case the outcome will always be the same.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1,2,3}</pre></td></tr><tr><td><pre>{5,5,5}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{3,3,4,1}</pre></td></tr><tr><td><pre>{2,2,2,100}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{31,34,55,56,57}</pre></td></tr><tr><td><pre>{1,2,3,4,5}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 15</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
