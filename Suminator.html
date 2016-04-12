@@ -1,0 +1,36 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td>Suminator is a very limited programming language.
+A program in this language is simply a sequence of nonnegative integers.
+The program is evaluated using a stack of nonnegative integers.
+Initially, the stack is empty.
+Trying to pop an element from an empty stack returns a zero.
+(Alternately, you can imagine that the stack already contains a sufficient number of zeros in the beginning.)<br></br>
+<br></br>
+A Suminator program is evaluated using the following algorithm:<br></br>
+<br></br>
+<pre>for i = 0 to length(program) - 1 {
+    if ( program[i] is 0) {
+         Pop the top two elements from the stack, add them together
+         and push the result to the top of the stack.
+    } else {
+         Push program[i] to the top of the stack.
+    }
+}
+Pop the top element of the stack and print it.</pre><br></br>
+<br></br>
+For example, when executing the program {1}, we first push the 1 to the stack, and then we print it. 
+When executing the program {5,0,1,2,0}, we take the following steps:
+<ul>
+<li>We push the 5 to the top of the stack.</li>
+<li>We pop the top two elements (5 and 0), add them together and push the result (5).</li>
+<li>We push the 1 to the top of the stack.</li>
+<li>We push the 2 to the top of the stack. At this moment, the stack contains the values 5, 1, and 2 (from bottom to top).</li>
+<li>We pop the top two elements (2 and 1), add them together and push the result (3).</li>
+<li>We print the top element of the stack: the number 3. Note that the stack also contains the value 5, which is ignored.</li>
+</ul>
+<br></br>
+You are given a vector &lt;int&gt; <b>program</b> containing a Suminator program (a sequence of nonnegative integers), in which one of the elements of the sequence was changed to -1.
+You are also given a int <b>wantedResult</b>.
+Your task is to change the -1 back to a nonnegative integer X in such a way that the resulting program prints the number <b>wantedResult</b>.
+Return X.
+If there are multiple possible values of X, return the smallest one.
+If there is no way to make the program print <b>wantedResult</b>, return -1 instead.</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>Suminator</td></tr><tr><td>Method:</td><td>findMissing</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;, int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int findMissing(vector &lt;int&gt; program, int wantedResult)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>64</td></tr></table></td></tr><tr><td colspan="2"><h3>Notes</h3></td></tr><tr><td align="center" valign="top">-</td><td>The return value always fits into an int. This follows from the constraints and the nature of the problem.</td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>program</b> will contain between 1 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>program</b> will be between -1 and 1000000000 (10^9), inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>program</b> will contain -1 exactly once.</td></tr><tr><td align="center" valign="top">-</td><td><b>wantedResult</b> will be between 1 and 1000000000 (10^9), inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{7,-1,0}</pre></td></tr><tr><td><pre>10</pre></td></tr></table></td></tr><tr><td><pre>Returns: 3</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{100, 200, 300, 0, 100, -1}</pre></td></tr><tr><td><pre>600</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{-1, 7, 3, 0, 1, 2, 0, 0}</pre></td></tr><tr><td><pre>13</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">We can replace the first element with many other values, but 0 is the smallest that achieves the wanted result.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{-1, 8, 4, 0, 1, 2, 0, 0}</pre></td></tr><tr><td><pre>16</pre></td></tr></table></td></tr><tr><td><pre>Returns: -1</pre></td></tr><tr><td><table><tr><td colspan="2">It does not matter what value we use in the first element of the array, the result will always be 15.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1000000000, 1000000000, 1000000000,  1000000000, -1, 0, 0, 0, 0}</pre></td></tr><tr><td><pre>1000000000</pre></td></tr></table></td></tr><tr><td><pre>Returns: -1</pre></td></tr><tr><td><table><tr><td colspan="2">It does not matter what we replace the -1 with, the result will be larger than 1000000000.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">5)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{7, -1, 3, 0}</pre></td></tr><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: -1</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
